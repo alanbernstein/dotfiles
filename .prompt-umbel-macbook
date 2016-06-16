@@ -9,10 +9,10 @@ if [ -n "$deps_status" ] ; then
    echo "TODO: try to get prompt_command to guess at the new deps"
 fi
 
-if [[ "$WIFI_NETWORK" == *"Umbel"* ]] ; then
+if [[ "$WIFI_NETWORK" == *"$WORK_WIFI_NETWORK"* ]] ; then
     # TODO: set screen timeout to 5min
     :
-elif [[ "$WIFI_NETWORK" == *"mollywogs"* ]] ; then
+elif [[ "$WIFI_NETWORK" == *"$HOME_WIFI_NETWORK"* ]] ; then
     # TODO: set screen timeout to 60min
     :
 fi

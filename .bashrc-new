@@ -22,6 +22,8 @@
 # TODO: determine whether interactive/login/ssh/etc
 
 export HOME_SERVER="bigpanda"
+export HOME_WIFI_NETWORK="mollywogs revenge"
+export WORK_WIFI_NETWORK="Umbel"
 
 # TODO: do i really want to export this? maybe:
 # - unset at end of this file
