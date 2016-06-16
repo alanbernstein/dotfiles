@@ -4,7 +4,6 @@ print_name 3 "- entry"
 # DEFAULT MODIFIERS
 alias cd="cd -P"
 alias date="date +'%Y/%m/%d %T'"
-alias df="df -h | egrep '(/dev/sd|File)'"
 alias echo="echo -e"
 alias egrep='egrep --color=auto'
 alias egrep='egrep --color=tty'  # why?
@@ -101,8 +100,6 @@ alias gitlog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Cres
 
 alias countfiles='for f in */ ; do echo "$(find "$f" | wc -l) - $f" ; done | sort -rh'
 
-
-alias df2="\df -h /dev/sda6 /dev/sdb1 /dev/sdc1 /dev/sdd1 | cut -c 1-11,23-39,45-100"
 
 alias fg='find . 2>/dev/null | grep -i 2>/dev/null'
 alias fg='find . | grep -i'
