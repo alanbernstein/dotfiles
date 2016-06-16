@@ -67,7 +67,7 @@ alias uuuu="cd ../../../.."
 
 
 # FILES
-EDITOR="emacs" # TODO: move this to .bashrc
+EDITOR="emacs" # TODO: move this to .bashrc, use `emacsclient -n`?
 alias gb="$EDITOR ~/.bashrc &"
 alias ga="$EDITOR ~/.alias &"
 alias sb="source ~/.bashrc"
