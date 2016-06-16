@@ -1,0 +1,51 @@
+print_name 3 "- entry"
+# TODO: put this stuff on github so i can actually use it on pi
+
+PSCOLOR1="$BPurple"
+PSCOLOR2="$BCyan"
+
+
+PI_HARDWARE_VERSION=$(cat /proc/cpuinfo | grep REVISION | cut -d: -f2)
+PI_SERIAL=$(cat /proc/cpuinfo | grep Serial | cut -d: -f2)  # unique machine identifier
+
+if [[ "$PI_HARDWARE_VERSION" == *"0010"* ]] ; then
+    PI_VERSION="bplus"
+elif [[ "PI_$HARDWARE_VERSION" == *"900092"* ]] ; then
+    PI_VERSION="zero1"
+fi
+
+if [[ "$PI_SERIAL" == *"0000000068b94342"* ]] ; then
+    NICKNAME="pi-webcam"
+fi
+
+# http://elinux.org/RPi_HardwareHistory
+# this doesn't quite mesh up for me -
+# i have a pi with REVISION = 0010,
+# this is B+ 1.0 according to above
+# but mine says B+ 1.2 on the board itself...
+
+# Revision	Release Date	Model	PCB Revision	Memory	Notes
+# Beta	Q1 2012	B (Beta)	 ?	256 MB	Beta Board
+# 0002	Q1 2012	B	1.0	256 MB	
+# 0003	Q3 2012	B (ECN0001)	1.0	256 MB	Fuses mod and D14 removed
+# 0004	Q3 2012	B	2.0	256 MB	(Mfg by Sony)
+# 0005	Q4 2012	B	2.0	256 MB	(Mfg by Qisda)
+# 0006	Q4 2012	B	2.0	256 MB	(Mfg by Egoman)
+# 0007	Q1 2013	A	2.0	256 MB	(Mfg by Egoman)
+# 0008	Q1 2013	A	2.0	256 MB	(Mfg by Sony)
+# 0009	Q1 2013	A	2.0	256 MB	(Mfg by Qisda)
+# 000d	Q4 2012	B	2.0	512 MB	(Mfg by Egoman)
+# 000e	Q4 2012	B	2.0	512 MB	(Mfg by Sony)
+# 000f	Q4 2012	B	2.0	512 MB	(Mfg by Qisda)
+# 0010	Q3 2014	B+	1.0	512 MB	(Mfg by Sony)
+# 0011	Q2 2014	Compute Module	1.0	512 MB	(Mfg by Sony)
+# 0012	Q4 2014	A+	1.1	256 MB	(Mfg by Sony)
+# 0013	Q1 2015	B+	1.2	512 MB	 ?
+# 0014	Q2 2014	Compute Module	1.0	512 MB	(Mfg by Embest)
+# 0015	 ?	A+	1.1	256 MB	(Mfg by Embest)
+# a01041	Q1 2015	2 Model B	1.1	1 GB	(Mfg by Sony)
+# a21041	Q1 2015	2 Model B	1.1	1 GB	(Mfg by Embest)
+# 900092	Q4 2015	Zero	1.2	512 MB	(Mfg by Sony)
+# 900093	Q2 2016	Zero	1.3	512 MB	
+# a02082	Q1 2016	3 Model B	1.2	1024 MB	(Mfg by Sony)
+# a22082	Q1 2016	3 Model B	1.2	1024 MB	(Mfg by ?)

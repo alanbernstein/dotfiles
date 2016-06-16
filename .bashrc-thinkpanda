@@ -1,0 +1,4 @@
+print_name 3 "- entry"
+
+PSCOLOR1="$BGreen"
+PSCOLOR2="$BCyan"

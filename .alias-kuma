@@ -1,0 +1,12 @@
+# for use at work
+#alias cp_mat_tools='scp -r -P 998 ~/Dropbox/matlab/* kuma@kumasignals.no-ip.org:/home/alan/Dropbox/matlab/.'
+#alias kumapc="ssh -p 996 alan@kuma.us.to"
+#alias kumatlab='ssh -p998 kuma@kumasignals.no-ip.org -t "cd /home/alan; bash --rcfile .bashrc"'  # kuma-server
+alias bigpanda2="ssh -p22 \$(curl -s alanbernstein.net/panda) -t \"export CLIENTNAME=$HOSTNAME; bash\"" # need the \$ to make it check for IP when CALLED, not when DEFINED, and the \" instead of \' to evaluate the $HOSTNAME here, not on the server
+alias bigpanda="ssh -X alan@monguin.dyndns.org"  
+alias cp_mat_fft_sync='scp -r -P 998 ~/matlab/fft_sync/*.m kuma@kumasignals.no-ip.org:/home/alan/matlab/fft_sync/.'
+alias cp_mat_tools='scp -r -P 993 ~/Dropbox/matlab/* kuma@kumasignals.no-ip.org:/home/alan/Dropbox/matlab/.'
+  
+# for use at home
+alias kumapc="ssh -p 996 alan@kumasignals.no-ip.org"
+alias kumatlab='ssh -p993 kuma@kumasignals.no-ip.org -t "cd /home/alan; bash --rcfile .bashrc"'   # powerhouse

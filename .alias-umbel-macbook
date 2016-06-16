@@ -1,0 +1,38 @@
+print_name 3 "- entry"
+
+alias map="python ~/src/scratch/map/umbelmap.py"
+alias standup="osascript -e 'tell application \"Spotify\" to play track \"spotify:track:75JwFVMnX88ypgshWYBSYL#0:13\"'"
+
+
+# dumbel stuff
+alias dm='cd ~/src/umbel; ./dumbel'
+alias dj='cd ~/src/umbel; ./dumbel django-admin.py'
+alias dmup='cd ~/u/umbel; ./dumbel up 2>&1 > dumbel-out.log &; tail -f dumbel-out.log | egrep -v "^.....cass0_1"'
+alias vmoff='vboxmanage controlvm dumbel-vm poweroff'
+alias denv='eval "$(docker-machine env dumbel-vm)"'
+alias dj_cmds='dj | tail -n +22 | grep --color=never " " | cut -b5-'
+alias mysql_prod="gsed -i \"s/'test_umbeldb'/'umbeldb'/g\" umbel/settings/dumbel/base.py"
+alias mysql_test="gsed -i \"s/'umbeldb'/'test_umbeldb'/g\" umbel/settings/dumbel/base.py"
+alias migrate_test="mysql_test; dj migrate; mysql_prod"
+alias cohort_silo_cass="cat ~/cohort_silo_cass"
+alias dkill="pkill -fI django"    # kill process with 'django' in the argument list; confirm before kill
+
+# support stuff
+alias rabbitmq='ssh -L 7772:localhost:15672 ops'
+alias opscenter='ssh -L 8888:localhost:8888 ops'
+
+
+# dev stuff
+alias pygt="ggrep -riIn --color=auto --include=*.py"
+alias pyg="ggrep -riIn --color=auto --include=*.py --exclude=*test* --exclude-dir=migrations"
+alias rmpyc='find . -type f -name "*.pyc" -delete'
+alias find_debug_prints='for f in $(git status | grep modified | cut -b14-) ; do echo $f ; grep print $f ; done'
+alias ptree='tree -h -P "*.py"'
+alias gdif="git diff --color | diff-highlight | diff-so-fancy"
+
+
+
+## old stuff
+alias sshops='ssh ops -t "bash --rcfile .bash_abernstein"'
+alias setppath='export PYTHONPATH=".:/home/alan/src/python:/home/alan/src/python/umbel:/home/alan/src/python/umbel/umbel:/home/alan/src/python/umbel/umbel/core:/home/alan/src/python/umbel/umbel/core/redis"'
+alias pickem='python -c "from random import random; print([random()>.36 for x in range(16)])"'

@@ -1,0 +1,4 @@
+print_name 3 "- entry"
+
+alias temps="sensors 2>/dev/null | egrep -v NA | cut -c 1-40" # this requires naming the unused sensor memory locations to "NA" in /etc/sensors.d/tpsensors, as described at http://www.thinkwiki.org/wiki/Thermal_Sensors#ThinkPad_T60
+alias tempsw="watch 'sensors 2>/dev/null | egrep -v NA | cut -c 1-20'" # this requires naming the unused sensor memory locations to "NA" in /etc/sensors.d/tpsensors, as described at http://www.thinkwiki.org/wiki/Thermal_Sensors#ThinkPad_T60

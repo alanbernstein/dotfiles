@@ -1,0 +1,9 @@
+print_name 3 "- entry"
+
+
+PSCOLOR1="$BCyan"
+PSCOLOR2="$BRed"
+
+export USE_DLITE=1
+
+export UMBEL="$HOME/src/umbel"

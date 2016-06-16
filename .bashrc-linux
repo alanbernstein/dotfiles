@@ -1,0 +1,12 @@
+print_name 3 "- entry"
+
+source /etc/lsb-release
+
+if [[ "$DISTRIB_ID" == *"Ubuntu"* ]] ; then
+    DISTRO="ubuntu"
+elif [[ "$DISTRIB_ID" == *"Crunchbang"* ]] ; then
+    DISTRO="crunchbang"
+fi
+
+echo "sourcing dotfiles for distro = $DISTRO"
+source $DOT/.paths-$DISTRO

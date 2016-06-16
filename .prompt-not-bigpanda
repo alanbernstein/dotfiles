@@ -1,0 +1,2 @@
+print_name 5 "- entry"
+export PANDA_IP=$(cat ~/.panda_ip)

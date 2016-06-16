@@ -1,0 +1,7 @@
+print_name 3 "- entry"
+
+PSCOLOR1="$BRed"   # bold red
+PSCOLOR2="$BCyan"  # bold cyan
+
+export DISPLAY_LIST=$(xrandr | grep "DVI.* connected" | cut -d" " -f1)
+export DISPLAYS=($DISPLAY_LIST)

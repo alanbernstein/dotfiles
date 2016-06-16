@@ -1,0 +1,6 @@
+print_name 3 "- entry"
+
+export MEDIA="/Volumes/"
+export STATEMENTS="$DOWNLOADS/finance/statements/"
+
+#export PROJECTS=?

@@ -1,0 +1,10 @@
+print_name 3 "- entry"
+
+#export DROPBOXPATH="$HOME/Dropbox/"
+#export TEXTPATH="$DROPBOXPATH/txt/"
+#export TODOPATH="$TEXTPATH/todo/"
+#export QRPATH="$TEXTPATH/qr/"
+#export NOTESPATH="$TEXTPATH/notes/"
+#export qr="$TEXTPATH/qr/"
+#export PYTHONPATH="$PYTHONPATH:$DROPBOXPATH/src/py"
+#export PYTHONSTARTUP="$DROPBOXPATH/bin/.pythonrc"

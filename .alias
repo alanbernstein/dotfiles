@@ -1,0 +1,142 @@
+print_name 3 "- entry"
+
+
+# DEFAULT MODIFIERS
+alias cd="cd -P"
+alias date="date +'%Y/%m/%d %T'"
+alias df="df -h | egrep '(/dev/sd|File)'"
+alias echo="echo -e"
+alias egrep='egrep --color=auto'
+alias egrep='egrep --color=tty'  # why?
+alias fgrep='fgrep --color=auto'
+alias fgrep='fgrep --color=tty'  # why?
+alias grep='grep --color=auto'
+alias grep='grep --color=tty'    # why?
+alias grepi='grep -i --color=auto'  
+alias grepi='grep -i --color=tty'  # why?
+alias mv="mv -iv"  # interactive (if overwrite), verbose
+alias cp="cp -iv"  # interactive (if overwrite), verbose
+alias xclock="xclock -update 1"
+
+alias ls="ls --group-directories-first --color --time-style='+%Y/%m/%d %H:%M:%S'"
+
+# LS VARIANTS
+alias l="ls -lAFBX"                        # normally list all
+alias ll="ls -lFBX"                        # dont list all (useful when lots of .files)
+alias la="ls -AFBX"                        # list all, columns
+alias ld='\ls -l | grep "^[d]"'            # list directories (no links)
+alias ldd='\ls -l | grep "^[ld]"'          # list directories (with links)
+alias ldd="ls -laFd */"                    # list directories (with links)
+alias lf="\ls -l | grep -v '^[ld]'"        # list only files
+alias le="\ls -1 *.*  | rev | cut -d. -f1 | rev | sort | uniq -c" # count extensions (after last . - only files with a .)
+alias lse='\ls | cut -s -d. -f2- | sort | uniq -c'                # count extensions (after first .)
+alias lse2='\ls | rev | cut -s -d. -f-1 | rev | sort | uniq -c'   # count extensions (after last .)
+
+#alias lsn='ls -n'
+#alias lsec='for t in $(lse); do echo $t - $(l *.$t | wc -l); done'    # this counts occurences in for loop; -c option for uniq does the same
+#alias lw='ld; l -X | grep -v "/$"'        # directories first, the files sorted by extension (windows style) (-X does same thing)
+alias lr='ls -lr'			               # reverse whatever order
+alias lrn='ls -l | sort +4rn -5'           # show biggest files at top
+alias lrt='ls -lt'                         # show most recent files at top
+alias lsn='ls -l | sort +4n -5'            # show biggest files at bottom
+alias lt='ls -lrt'                         # show most recent files at bottom
+
+
+# DU VARIANTS
+alias dum='du --max-depth='
+alias dum1="du --max-depth=1 -h"
+alias dush1="du -hd1 | sort -rh"  # works fine
+alias dush1f='du --max-depth=1 -h | sort -rh | sed -r "s/^[0-9.][0-9.][^0-9.]/ &/"; echo "$(du -Ssh)<files>" | sed -r "s/^[0-9.][0-9.][^0-9.]/ &/"' # but this aligns the numbers, for easier use by other commands
+
+# these are all replaced by treemonger or whatever
+#alias du1='du --max-depth=1'
+#alias du2='du --max-depth=2'
+#alias du3='du --max-depth=3'
+#alias dum1='du --max-depth=1'
+#alias dum2='du --max-depth=2'
+#alias dum3='du --max-depth=3'
+
+
+# DIRECTORIES
+alias d='cd ~/Dropbox'
+#alias t="cd /"             # t for top
+alias u="cd .."            # u for up
+alias uu="cd ../.."        # uu for up up
+alias uuu="cd ../../.."
+alias uuuu="cd ../../../.."
+
+
+# FILES
+EDITOR="emacs" # TODO: move this to .bashrc
+alias gb="$EDITOR ~/.bashrc &"
+alias ga="$EDITOR ~/.alias &"
+alias sb="source ~/.bashrc"
+alias sa="source ~/.alias"
+
+
+# ABBREVIATIONS (still sorting through these)
+#alias diskspace="df 2>/dev/null | awk '{ printf \"%-20s : %4s/%4s (%3s) used, %4s free \n\", \$6, \$3, \$2, \$5, \$4}'"
+alias b='echo -e "ding!\a"'
+alias r='reset'
+alias c='clear'
+alias sai="sudo apt-get install"
+alias sar="sudo apt-get remove"
+alias his='history'
+alias thes='dict -d moby-thesaurus'
+alias cronshow='crontab -l | egrep -v "^#|^$"'
+
+alias py="python"
+alias ipy="ipython"
+alias bpy="bpython"
+alias ppy="ptpython"
+alias pm="python manage.py" # django alias
+
+alias wttr="curl wttr.in"
+
+alias emax="emacsclient -n"
+
+alias pullmaster="current=\$(git rev-parse --abbrev-ref HEAD) && git stash && git checkout master && git pull && git checkout \$current && git stash pop"
+
+alias gitlog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+
+alias countfiles='for f in */ ; do echo "$(find "$f" | wc -l) - $f" ; done | sort -rh'
+
+
+alias df2="\df -h /dev/sda6 /dev/sdb1 /dev/sdc1 /dev/sdd1 | cut -c 1-11,23-39,45-100"
+
+alias diskspace="watch -d -n 60 '\df -h /dev/sda6 /dev/sdb1 /dev/sdc1 /dev/sdd1 | cut -c 1-11,23-39,45-100'"
+alias fg='find . 2>/dev/null | grep -i 2>/dev/null'
+alias fg='find . | grep -i'
+
+alias gsm='gnome-system-monitor'
+
+alias idl='w | tail -n +3 | tr -s " " | sort -k 5,5n | head -1 | cut -d " " -f5'
+
+alias path='echo $PATH | tr : "\n"'
+alias randal='find $(\ls -1d /media/MediaI/music/albums/*/*/ | sort -R | head -1) -name *.mp3'
+
+alias thisdir='pwd | rev | cut -d/ -f1 | rev'
+alias version='cat /etc/lsb-release'
+alias vlsc='dircolors -p'
+
+alias wordfind='grep /usr/share/dict/words '
+
+alias stlinfo="slic3r --info"
+alias stlvolumes='slic3r --info *.stl | egrep "Info|volume" | paste -d, - - | cut -d" " -f3- | cut -d: -f1,3 | tr -s " " | gsort -k2n'
+# the paste copies lines from stdin and stdin alternately, combining 2N lines into N lines
+# the tr -s 'squeezes' spaces into one space
+
+alias tg="ggrep -riIn --color=auto --include=*.txt --exclude='* *'"
+alias please="sudo  !!" # run prev command as sudo
+alias filecount="find . -type f -printf \"%h\n\" | cut -d/ -f-2 | sort | uniq -c | sort -rn"
+
+
+# network stuff
+# TODO: get IP from $PANDAIP, test that
+alias bigpanda2="ssh -p22 \$(curl -s alanbernstein.net/panda) -t \"export CLIENTNAME=$HOSTNAME; bash\"" 
+alias bigpanda="ssh alan@\$(curl -sm 1 alanbernstein.net/panda)"
+alias xpanda="ssh -X alan@\$(curl -sm 1 alanbernstein.net/panda)"
+alias scan_home_network="sudo nmap -sS -p22,80 192.168.1.0/24"
+alias rpi="ssh pi@192.168.0.102"
+alias find_rpi='sudo nmap -sP 192.168.0.1/24 | grep -B2 "74:DA:38:0C:F9:D7"'
+

@@ -1,0 +1,202 @@
+# this is the main entry point for my extensible environment-aware bashrc system.
+# main functionality:
+# - define a bunch of useful environment variables, including
+#   - common directory shortcuts
+#   - OS, MAC (address)
+#   - NICKNAME (machine identifier) and LOCATION (wifi-informed)
+#   - verbosity level
+# - source .alias and .path files, split up per machine/OS/etc
+# - define environment-aware PS1 (prompt string)
+# - define environment-aware prompt_command
+# - configurable debug print statements
+#
+# TODO: order of operations is tricky:
+# - need aliases early, to deal with gnu-coreutils in osx
+# - need functions early, for print_name
+# - need paths early, to access custom scripts
+# - want machine/os/network info early, to minimize branching logic duplication
+#   - this last issue is least critical, so duplicate some logic
+#
+# TODO: what outputs the "you have mail" message, how can i access that hook?
+# TODO: move as much configuration as possible to top of this file
+# TODO: determine whether interactive/login/ssh/etc
+
+export HOME_SERVER="bigpanda"
+
+# TODO: do i really want to export this? maybe:
+# - unset at end of this file
+# - store current value and restore it
+export VERBOSITY=2
+# current VERBOSITY usage (2016/06)
+# VERBOSITY=0 -> none of my diagnostics print
+# VERBOSITY=1 -> only print entry into this file
+# VERBOSITY=2 -> print which environment-specific branches are taken
+# VERBOSITY=3 -> print detailed info, entry into each dotfile
+# VERBOSITY=4 -> not yet used
+# VERBOSITY=5 -> print prompt_command diagnostics (at every new prompt)
+
+function vprint {
+    # verbosity print
+    # usage:
+    #  vprint v message with spaces
+    # echos message if v is less or equal to current verbosity level
+    if [ "$1" -le "$VERBOSITY" ] ; then
+        shift 1
+        echo "$*"
+    fi
+}
+
+function print_name {
+    # could use $0 as well?
+    vprint $1 $(basename ${BASH_SOURCE[1]}) $2
+}
+
+print_name 1 " - entry"
+
+
+CALLED_BY="$(ps -o comm= $PPID)"
+SOURCED_BY="$(caller)"
+CALLED_AS=$BASH_SOURCE
+SCRIPT_NAME=$(basename ${BASH_SOURCE[0]})
+CALLED_AS_BASE=$(basename $BASH_SOURCE)
+if [[ $(uname) == *"Darwin"* ]] ; then
+    REAL_FILE=$(greadlink -f $CALLED_AS)
+else
+    REAL_FILE=$(readlink -f $CALLED_AS)
+fi
+
+vprint 3 "called by:  $CALLED_BY"
+vprint 3 "sourced by: $SOURCED_BY"
+vprint 3 "called as:  $CALLED_AS"
+vprint 2 "refers to:  $REAL_FILE"
+
+
+source $HOME/Dropbox/src/dotfiles/.paths # define path shortcuts
+source $DOT/.alias
+source $HOME/.secretrc  # should never go in $DOT
+source $SRC/bash/downloaded/git-completion.bash  # works on os x
+source $SRC/bash/downloaded/h.sh                 # highligher
+# TODO: https://github.com/django/django/blob/master/extras/django_bash_completion
+
+
+source $DOT/bash_functions
+
+#################################
+# machine/environment specific
+source get_machine_and_network_info -q
+source get_machine_and_location_names -q
+# ARCH, KERNEL, WIFI_MAC -> MACHINE - more consistent and useful than HOSTNAME
+# WIFI_NETWORK -> LOCATION
+
+vprint 3 "OS           = '$OS'"
+vprint 3 "WIFI_NETWORK = '$WIFI_NETWORK'"
+vprint 3 "WIFI_MAC     = '$WIFI_MAC'"
+vprint 3 "LOCATION     = '$LOCATION'"
+vprint 3 "MACHINE      = '$MACHINE'"
+
+
+vprint 2 "sourcing dotfiles for os = $OS"
+source $DOT/.bashrc-$OS
+source $DOT/.paths-$OS
+source $DOT/.alias-$OS
+
+source $DOT/.bash-escape-codes      # color sequence shortcuts, etc
+# default prompt colors
+PSCOLOR1=$Blue
+PSCOLOR2=$Cyan
+
+vprint 2 "sourcing dotfiles for machine = $MACHINE"
+source $DOT/.bashrc-$MACHINE  # this should override PSCOLOR*
+source $DOT/.paths-$MACHINE
+source $DOT/.alias-$MACHINE
+
+NICKNAME=${NICKNAME:-$HOSTNAME} # if NICKNAME is set use it; else use hostname
+
+if [[ "$NICKNAME" != "$HOME_SERVER" ]] ; then
+    vprint 2 "sourcing dotfiles for machine != $HOME_SERVER"
+    source $DOT/.bashrc-not-$HOME_SERVER
+    source $DOT/.alias-not-$HOME_SERVER
+fi
+
+#######################
+# prompt stuff
+
+# http://jakemccrary.com/blog/2015/05/03/put-the-last-commands-run-time-in-your-bash-prompt/
+function timer_start {
+    timer=${timer:-$SECONDS}
+}
+
+function timer_stop {
+    timer_show=$(($SECONDS - $timer))
+    unset timer
+}
+
+trap 'timer_start' DEBUG
+# http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_12_02.html
+
+
+# http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x279.html 
+# apparently its possible to put arbitrary commands in prompt
+# e.g., https://github.com/michaeldfallen/git-radar
+
+
+#PS1='[last: ${timer_show}s][\w]$ '
+
+# [date time] dir (newline)
+# user@nickname/tty (jobs/historycount/lastruntime)$ 
+
+PS1="$PSCOLOR1"                                         # set main prompt color
+PS1="$PS1[\D{%Y/%m/%d %T}] "                            # lexicographically correct date+time
+PS1="$PS1\w "                                           # Full working directory
+PS1="$PS1\$(git-radar --bash --fetch 2>/dev/null)\n"    # git info
+PS1="$PS1$PSCOLOR1"                                     # restore main color
+PS1="$PS1\u@$NICKNAME:\l "                              # user, nickname, terminal
+PS1="$PS1($PSCOLOR2\j$PSCOLOR1/\!/"                     # numjobs, command index
+PS1="$PS1\${timer_show}s)$ "                            # last command runtime
+#PS1="${PS1}FOO=\$FOO, BAR=\$BAR)$ "                    # testing prompt_command
+PS1="$PS1$ColorOff$TitleStart\W$TitleEnd"               # present basename in title
+export PS1
+
+
+function prompt_command {
+    # TODO: detect new location/first usage of day, output messages from that
+    # - first usage of day: weather, todo lists
+    # - new location = umbel - work todo list
+    # - new location = home - home todo lists
+    # TODO: hit servers in cron job, update a file if successful, pull result here
+    # - panda IP
+    # - deps repo
+
+    timer_stop
+
+    # TODO: get previous exit status and command, use that to suggest a solution
+    # http://stackoverflow.com/questions/6109225/bash-echoing-the-last-command-run
+    export PREV_CMD="$(fc -ln -1)" # sorta works, but delayed by one command
+    export PREV_EXIT=$? # previous return status
+
+#    echo "previous command: $PREV_CMD"
+#    echo "previous exit: $PREV_EXIT"
+    
+    if [ "$PREV_EXIT" = "0" ] ; then
+       #echo "no error"
+	      x=0
+    else
+        echo "last error: $exit"
+    fi
+
+    # machine/location-dependent actions:
+    # put into .prompt-* files:
+    source get_machine_and_network_info -q  # get WIFI_NETWORK after every prompt
+    source $DOT/.prompt-$MACHINE  # -bigpanda, -umbel-macbook, -raspberrypi
+
+    if [[ $MACHINE != "$HOME_SERVER" ]] ; then
+        source $DOT/.prompt-not-$HOME_SERVER
+    fi
+
+    source $DOT/.prompt-$LOCATION  # -home, -umbel
+}
+
+# problem: doing this in a script prevents exporting vars - must use function instead
+# PROMPT_COMMAND="prompt-script"  # this wouldn't work
+# http://stackoverflow.com/questions/3058325/what-is-the-difference-between-ps1-and-prompt-command/11107564#11107564
+export PROMPT_COMMAND=prompt_command

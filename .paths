@@ -1,0 +1,26 @@
+print_name 3 "- entry"
+
+# shortcuts
+export DROPBOX="$HOME/Dropbox"
+export SRC="$DROPBOX/src"
+export DOT="$SRC/dotfiles/"
+export DOWNLOADS="$HOME/Downloads"
+export TXT="$DROPBOX/txt"
+export QR="$TXT/qr/"                   # quickref directory
+export TODO="$TXT/todo/"
+export NOTES="$TXT/notes/"
+export PY="$SRC/py/"
+export GO="$SRC/go/"
+export CMD="$SRC/commands/"            # command links directory (replacement for ~/bin)
+export PINOUTS="$DROPBOX/images/pinouts"
+export CACHE="$HOME/.cache/"
+
+
+# important path vars
+export PATH=".:$DROPBOX/bin:$CMD:$HOME:$GOPATH/bin:$PATH" # add current directory and home directory to command search path
+export CDPATH=".:~"
+export PYTHONPATH="$PY:$PYTHONPATH"
+export PYTHONSTARTUP="$DOT/.pythonrc"
+export MATPLOTLIBRC="$PY"
+export GOPATH="$GO"
+export OPENSCADPATH="$SRC/scad/alanlib"

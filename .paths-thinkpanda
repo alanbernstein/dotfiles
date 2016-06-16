@@ -1,0 +1,5 @@
+print_name 3 "- entry"
+
+export MEDIA="/media/"
+export STATEMENTS="/media/tb/documents/financial/statements/"
+

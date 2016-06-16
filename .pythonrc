@@ -1,0 +1,74 @@
+# -*- mode: python -*-
+import os
+import datetime
+from dateutil.parser import parse
+
+# custom
+from clc import clc
+# todo imports:
+# - site uploader
+# - time utils
+# - debug/annotate decorators
+# - varinfo
+# - size
+# - console plotter
+
+print('`from __future__ import division` to default float division')
+
+try:
+    print('executing %s' % os.path.realpath(__file__))
+except Exception as e:
+    print(e)
+
+import sys
+from panda.debug import debug, pp
+from datetime import datetime as dt
+print('pprint -> pp')
+print('ipdb.set_trace -> debug')
+
+try:
+    import numpy as np
+    print('imported numpy as np')
+except:
+    print('numpy not available!')
+
+try:
+    import matplotlib as plt
+    print('imported matplotlib as plt')
+except:
+    print('matplotlib not available!')
+
+try:
+    from pylab import *
+except:
+    print('pylab not available!')
+
+# detect interactive/executable, and/or which interpreter
+# (python, ipython, bpython)
+import inspect
+stk = inspect.stack()
+if len(stk) > 3 and stk[3] is list and len(stk[3] > 1) and 'bpython' in stk[3][1]:
+    __BPYTHON__ = True
+# __IPYTHON__ defined in ipython
+
+
+# enable tab completion
+# http://www.farmckon.net/2009/08/rlcompleter-how-do-i-get-it-to-work/
+try:
+    import readline  # !!
+except ImportError:
+    try:
+        import pyreadline as readline
+        # throw open a browser if we fail both readline and pyreadline
+    except ImportError:
+        import webbrowser
+        webbrowser.open(
+            "http://ipython.scipy.org/moin/PyReadline/Intro#line-36")
+        # throw open a browser
+        # pass
+    else:
+        import rlcompleter  # !!
+        if sys.platform == 'darwin':
+            readline.parse_and_bind("bind ^I rl_complete")
+        else:
+            readline.parse_and_bind("tab: complete")  # !!

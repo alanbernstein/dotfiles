@@ -1,0 +1,21 @@
+print_name 5 "- entry"
+
+# check deps repo
+deps_status=$(cd ~/src/umbel/deps && git status | grep behind)
+if [ -n "$deps_status" ] ; then
+   echo "update deps repo!"
+   echo "cd ~/src/umbel/deps && git pull # fix in future builds"
+   echo "dm pip install -U <whatever is broken> # fix in current build"
+   echo "TODO: try to get prompt_command to guess at the new deps"
+fi
+
+if [[ "$WIFI_NETWORK" == *"Umbel"* ]] ; then
+    # TODO: set screen timeout to 5min
+    :
+elif [[ "$WIFI_NETWORK" == *"mollywogs"* ]] ; then
+    # TODO: set screen timeout to 60min
+    :
+fi
+
+# ONCE A DAY:
+# run slack channel notifier

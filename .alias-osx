@@ -1,0 +1,36 @@
+print_name 3 "- entry"
+
+# GNU COREUTILS
+alias ls="gls --group-directories-first --color --time-style='+%Y/%m/%d %H:%M:%S'"
+alias date="gdate"
+alias grep="ggrep --color=auto"
+alias egrep="gegrep --color=auto"
+alias fgrep="gfgrep --color=auto"
+alias sort="gsort"
+alias readlink="greadlink"
+#alias find="gfind"
+
+
+# APP AND SYTEM ALIASES
+# TODO: there must be a better way to do this?
+alias slic3r="/Applications/Slic3r.app/Contents/MacOS/slic3r"
+alias safari="/Applications/Safari.app/Contents/MacOS/Safari"
+alias scad="/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD"
+alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
+alias airport="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport"
+alias emacs="/usr/local/Cellar/emacs/24.5/Emacs.app/Contents/MacOS/Emacs -nw"
+
+
+# SPOTIFY STUFF
+alias spotify_track_id="osascript -e 'tell application \"Spotify\" to get id of current track'"
+alias spotify_track_name="osascript -e 'tell application \"Spotify\" to get name of current track'"
+alias spotify_track_artist="osascript -e 'tell application \"Spotify\" to get artist of current track'"
+alias spotify_track="echo \$(spotify_track_name) - \$(spotify_track_artist) \\(\$(spotify_track_id)\\)" # not 100% confident on these backslashes - but they prevent error output when this runs
+
+
+# JUNK
+alias sound="say -v Zarvox headphones"
+alias voices="say -v? | ggrep -v \"[^-a-zA-Z _#.',?\!]\""
+
+
+

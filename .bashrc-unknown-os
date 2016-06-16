@@ -1,0 +1,1 @@
+echo ".bashrc: unknown OS. check get_machine_and_network_info"

@@ -1,0 +1,16 @@
+print_name 3 "- entry"
+
+export CDPATH=":~:/media/alan/tb:/media/MediaI:~/public_html:~/c:~/py:~/.purple/logs/aim:~/.purple/logs/jabber" # first entry should be blank to force checking current directory
+
+
+export MEDIA="/media/"
+export STATEMENTS="/media/tb/documents/financial/statements/"
+
+#projects = None
+
+#export PATH="~/bin/nedit-5.5:~/bin:$PATH"
+#export PATH="/usr/include/gtk-2.0/gtk:$PATH"
+#export PATH="/media/MediaI/linux/source/gtk/gtk+-2.16.0/"
+#export PATH="/usr/local/matlab/bin/:$PATH" # put matlab -nosplash script in /bin instead
+#export MATLABPATH="/media/MediaI/source/matlab/"
+#export MATLABPATH="/home/alan/Dropbox/matlab/"
