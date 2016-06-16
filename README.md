@@ -28,6 +28,7 @@ these depend on some (bash) environment variables that contain (real-world) envi
 additionally, `$HOME_SERVER` is used to decide whether any remote config should be used:
 * `.bashrc-not-bigpanda` - track home server's dynamic IP for easy SSH access
 
+all of this stuff has to live in `$HOME/Dropbox/src/dotfiles` to work properly. that path is sort of 'bootstrapped', so ideally it would be configurable, for the sake of other people using this stuff.
 
 
 ### why?
