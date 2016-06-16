@@ -41,7 +41,7 @@ function vprint {
     # verbosity print
     # usage:
     #  vprint v message with spaces
-    # echos message if v is less or equal to current verbosity level
+    # echos message if v is <= to current verbosity level
     if [ "$1" -le "$VERBOSITY" ] ; then
         shift 1
         echo "$*"
@@ -49,7 +49,10 @@ function vprint {
 }
 
 function print_name {
-    # could use $0 as well?
+    # usage:
+    #  print_name v "message"
+    # echos basename of current bash file (plus message), if v is <= current verbosity level
+    # TODO: could use $0 as well?
     vprint $1 $(basename ${BASH_SOURCE[1]}) $2
 }
 
