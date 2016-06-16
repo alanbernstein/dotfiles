@@ -14,11 +14,14 @@ functionality is split into four main components...
 * .bashrc-osx             osx-specific shell config ($OS)
 * .paths-umbel-macbook    work laptop-specific path setup ($MACHINE)
 * .alias-raspberry-pi     raspberry pi-specfic aliases ($MACHINE)
+* .prompt-home            home location-specific PROMPT_COMMAND actions ($LOCATION)
 
 .bashrc-$MACHINE usually defines $PSCOLOR1 and $PSCOLOR2, which set machine-specific $PS1 prompt colors. I use this to identify terminals running SSH sessions quickly.
 
 additionally, $HOME_SERVER is used to decide whether any remote config should be used -
 * .bashrc-not-bigpanda
+
+$LOCATION determined from $WIFI_NETWORK, which comes from `nm-tool` or `airport -I`
 
 
 why? I have a bunch of common functionality I want on every machine I use, and I also have a little bit of machine/platform-specific functionality, in a mutually exclusive kind of way. I also value the ability to completely set up a new machine as quickly and painlessly as possible. for years, I've dealt with these issues in an ad-hoc way that has left me with a giant pile of .bashrc_* files that are basically impossible to maintain. this structure has worked much better, so far.
