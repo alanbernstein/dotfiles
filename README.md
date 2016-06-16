@@ -14,7 +14,7 @@ functionality is split into four main components...
 * `.bashrc-osx` - osx-specific shell config (`$OS`)
 * `.paths-umbel-macbook` - work laptop-specific path setup (`$MACHINE`)
 * `.alias-raspberry-pi` - raspberry pi-specfic aliases (`$MACHINE`)
-* `.prompt-home` - home location-specific `PROMPT_COMMAND` actions (`$LOCATION`)
+* `.prompt-home` - home location-specific `$PROMPT_COMMAND` actions (`$LOCATION`)
 
 these depend on some (bash) environment variables that contain (real-world) environment info:
 - `$LOCATION` - physical location, determined from `$WIFI_NETWORK`, which comes from `nm-tool` or `airport -I`
