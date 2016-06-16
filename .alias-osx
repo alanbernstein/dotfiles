@@ -1,6 +1,10 @@
 print_name 3 "- entry"
 
 # GNU COREUTILS
+# i don't like BSD coreutils much, or at least not the old versions that come by default on OSX.
+# if I have to do work to get something usable anyway, might as well stick with the gnu versions.
+# in theory, this should have been handled by `brew install coreutils` somehow, but...
+# TODO: detect absence of these and warn (.bashrc-osx)
 alias ls="gls --group-directories-first --color --time-style='+%Y/%m/%d %H:%M:%S'"
 alias date="gdate"
 alias grep="ggrep --color=auto"
@@ -29,7 +33,7 @@ alias spotify_track="echo \$(spotify_track_name) - \$(spotify_track_artist) \\(\
 
 
 # JUNK
-alias sound="say -v Zarvox headphones"
+alias sound="say -v Zarvox headphones"  # check whether janky headphone port is working properly
 alias voices="say -v? | ggrep -v \"[^-a-zA-Z _#.',?\!]\""
 
 
