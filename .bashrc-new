@@ -128,22 +128,26 @@ fi
 
 # http://jakemccrary.com/blog/2015/05/03/put-the-last-commands-run-time-in-your-bash-prompt/
 function timer_start {
-    timer=${timer:-$SECONDS}
+    # $SECONDS is a bash special variable - num seconds since shell started
+    timer=${timer:-$SECONDS} # $timer = old value if set, else $SECONDS
+    # with `trap 'timer_start' DEBUG`, this runs at least three times for every command:
+    # - when command is executed (?)
+    # - ?
+    # - when command finishes (?)
 }
 
 function timer_stop {
-    timer_show=$(($SECONDS - $timer))
+    timer_show=$(($SECONDS - $timer))  # time since the last time timer_start was run with $timer undefined (last time a command was executed)
     unset timer
 }
 
 trap 'timer_start' DEBUG
+
+
 # http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_12_02.html
-
-
 # http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x279.html 
 # apparently its possible to put arbitrary commands in prompt
 # e.g., https://github.com/michaeldfallen/git-radar
-
 
 #PS1='[last: ${timer_show}s][\w]$ '
 
@@ -169,10 +173,8 @@ function prompt_command {
     # - new location = umbel - work todo list
     # - new location = home - home todo lists
     # TODO: hit servers in cron job, update a file if successful, pull result here
-    # - panda IP
-    # - deps repo
-
-    timer_stop
+    # - HOME_SERVER_IP
+    # - umbel deps repo
 
     # TODO: get previous exit status and command, use that to suggest a solution
     # http://stackoverflow.com/questions/6109225/bash-echoing-the-last-command-run
@@ -190,7 +192,6 @@ function prompt_command {
     fi
 
     # machine/location-dependent actions:
-    # put into .prompt-* files:
     source get_machine_and_network_info -q  # get WIFI_NETWORK after every prompt
     source $DOT/.prompt-$MACHINE  # -bigpanda, -umbel-macbook, -raspberrypi
 
@@ -199,6 +200,12 @@ function prompt_command {
     fi
 
     source $DOT/.prompt-$LOCATION  # -home, -umbel
+
+    # compute command execution time
+    # - this should be last command in this function, to avoid calling timer_start again
+    # - seems like this will count long-running stuff in this function
+    # - shouldn't be any long-running stuff here anyway
+    timer_stop
 }
 
 # problem: doing this in a script prevents exporting vars - must use function instead
