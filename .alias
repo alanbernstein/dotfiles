@@ -104,7 +104,6 @@ alias countfiles='for f in */ ; do echo "$(find "$f" | wc -l) - $f" ; done | sor
 
 alias df2="\df -h /dev/sda6 /dev/sdb1 /dev/sdc1 /dev/sdd1 | cut -c 1-11,23-39,45-100"
 
-alias diskspace="watch -d -n 60 '\df -h /dev/sda6 /dev/sdb1 /dev/sdc1 /dev/sdd1 | cut -c 1-11,23-39,45-100'"
 alias fg='find . 2>/dev/null | grep -i 2>/dev/null'
 alias fg='find . | grep -i'
 

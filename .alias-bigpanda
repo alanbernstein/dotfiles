@@ -6,8 +6,12 @@ alias h1='cd /media/MediaI'
 alias h2='cd /media/MediaII'
 alias h3='cd /media/MediaIII'
 
+alias diskspace="watch -d -n 60 '\df -h /dev/sda6 /dev/sdb1 /dev/sdc1 /dev/sdd1 | cut -c 1-11,23-39,45-100'"
+alias df2="\df -h /dev/sda6 /dev/sdb1 /dev/sdc1 /dev/sdd1 | cut -c 1-11,23-39,45-100"
+
 # TODO: get display names in .bashrc, put them into a bash list, use that here
 # alias set_dual_screen="xrandr --output $(xrandr | grep DVI | head -1| cut -b1-7) --left-of $(xrandr | grep DVI | tail -1 | cut -b1-7)"
 
 # TODO: verify this worked
 # alias set_dual_screen="xrandr --output ${DISPLAYS[0]} --left-of ${DISPLAYS[1]}"
+
