@@ -21,6 +21,8 @@ these depend on some (bash) environment variables that contain (real-world) envi
 - `$MACHINE` - human-readable name for machine, determined from `$WIFI_MAC`, which comes from `ifconfig $INTERFACE`
 - `$OS` - human-readable name for OS, determined from `$KERNEL`, which comes from `uname -s`
 
+`$LOCATION` and `$MACHINE` are defined in some bash scripts that aren't present in this repo
+
 `.bashrc-$MACHINE` usually defines `$PSCOLOR1` and `$PSCOLOR2`, which set machine-specific `$PS1` prompt colors. I use this to visually identify terminals running SSH sessions.
 
 additionally, `$HOME_SERVER` is used to decide whether any remote config should be used:
