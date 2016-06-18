@@ -1,10 +1,12 @@
 print_name 3 "- entry"
 
+# TODO: make this cleaner?
 source /etc/lsb-release
+source /etc/lsb-release-* 
 
 if [[ "$DISTRIB_ID" == *"Ubuntu"* ]] ; then
     DISTRO="ubuntu"
-elif [[ "$DISTRIB_ID" == *"Crunchbang"* ]] ; then
+elif [[ "$DISTRIB_ID" == *"CrunchBang"* ]] ; then
     DISTRO="crunchbang"
 fi
 
