@@ -88,7 +88,7 @@ source $DOT/bash_functions
 
 #################################
 # machine/environment specific
-source get_machine_and_network_info -q
+source get_machine_and_network_info -q  2>/dev/null
 source get_machine_and_location_names -q
 # ARCH, KERNEL, WIFI_MAC -> MACHINE - more consistent and useful than HOSTNAME
 # WIFI_NETWORK -> LOCATION
@@ -192,7 +192,7 @@ function prompt_command {
     fi
 
     # machine/location-dependent actions:
-    source get_machine_and_network_info -q  # get WIFI_NETWORK after every prompt
+    source get_machine_and_network_info -q  2>/dev/null # get WIFI_NETWORK after every prompt
     source $DOT/.prompt-$MACHINE  # -bigpanda, -umbel-macbook, -raspberrypi
 
     if [[ $MACHINE != "$HOME_SERVER" ]] ; then
