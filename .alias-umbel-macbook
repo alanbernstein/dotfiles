@@ -29,7 +29,7 @@ alias rmpyc='find . -type f -name "*.pyc" -delete'
 alias find_debug_prints='for f in $(git status | grep modified | cut -b14-) ; do echo $f ; grep print $f ; done'
 alias ptree='tree -h -P "*.py"'
 alias gdif="git diff --color | diff-highlight | diff-so-fancy"
-
+alias list_attrs="cd ~/src/umbel; ggrep -riIon --include=*.py '@attr(.*)' | cut -d: -f3 | sort | uniq"
 
 
 ## old stuff
