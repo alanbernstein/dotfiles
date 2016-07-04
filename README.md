@@ -3,7 +3,7 @@
 ## extensible, configurable bashrc system
 
 ### why?
-I have a bunch of common functionality I want on every machine I use, and I also have a little bit of machine/platform-specific functionality, in a mutually exclusive kind of way. I also value the ability to completely set up a new machine as quickly and painlessly as possible. for years, I've dealt with these issues in an ad-hoc way that has left me with a giant pile of .bashrc_* files that are basically impossible to maintain. this structure has worked much better, so far.
+I have a bunch of common functionality I want on every machine I use, and I also have a little bit of machine/platform-specific functionality, in a mutually exclusive kind of way. I also value the ability to completely set up a new machine as quickly and painlessly as possible. for years, I've dealt with these issues in an ad-hoc way that has left me with a giant pile of .bashrc_$HOSTNAME_$DATE files that are basically impossible to maintain. this structure has worked much better, so far.
 
 using dropbox obviates the need for github, except in the case of raspberry pis, which has no official dropbox client. now that i have 1) multiple pis and 2) this repo in a stable state, putting it up is useful.
 
