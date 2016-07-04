@@ -86,9 +86,12 @@ alias cronshow='crontab -l | egrep -v "^#|^$"'
 
 alias py="python"
 alias ipy="ipython"
+alias ipn="ipython notebook"
 alias bpy="bpython"
 alias ppy="ptpython"
 alias pm="python manage.py" # django alias
+
+alias rmpyc='find . -type f -name "*.pyc" -delete'
 
 alias wttr="curl wttr.in"
 

@@ -15,7 +15,7 @@ alias readlink="greadlink"
 #alias find="gfind"
 
 
-# APP AND SYTEM ALIASES
+# APP AND SYSTEM ALIASES
 # TODO: there must be a better way to do this?
 alias slic3r="/Applications/Slic3r.app/Contents/MacOS/slic3r"
 alias safari="/Applications/Safari.app/Contents/MacOS/Safari"
@@ -23,7 +23,7 @@ alias scad="/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD"
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 alias airport="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport"
 alias emacs="/usr/local/Cellar/emacs/24.5/Emacs.app/Contents/MacOS/Emacs -nw"
-
+alias acpower="system_profiler SPPowerDataType | grep Connected | awk '{print $2}'"
 
 # SPOTIFY STUFF
 alias spotify_track_id="osascript -e 'tell application \"Spotify\" to get id of current track'"

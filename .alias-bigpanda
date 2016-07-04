@@ -16,3 +16,4 @@ alias df2="\df -h /dev/sda6 /dev/sdb1 /dev/sdc1 /dev/sdd1 | cut -c 1-11,23-39,45
 # TODO: verify this worked
 # alias set_dual_screen="xrandr --output ${DISPLAYS[0]} --left-of ${DISPLAYS[1]}"
 
+alias pyg="grep -riIn --color=auto --include=*.py --exclude=*test* --exclude-dir=downloaded --exclude-dir=heroku"

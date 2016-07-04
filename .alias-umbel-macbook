@@ -24,8 +24,7 @@ alias opscenter='ssh -L 8888:localhost:8888 ops'
 
 # dev stuff
 alias pygt="ggrep -riIn --color=auto --include=*.py"
-alias pyg="ggrep -riIn --color=auto --include=*.py --exclude=*test* --exclude-dir=migrations"
-alias rmpyc='find . -type f -name "*.pyc" -delete'
+alias pyg="ggrep -riIn --color=auto --include=*.py --exclude=*test* --exclude-dir=migrations --exclude-dir=downloaded"
 alias find_debug_prints='for f in $(git status | grep modified | cut -b14-) ; do echo $f ; grep print $f ; done'
 alias ptree='tree -h -P "*.py"'
 alias gdif="git diff --color | diff-highlight | diff-so-fancy"
