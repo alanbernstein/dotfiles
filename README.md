@@ -20,6 +20,7 @@ these depend on some (bash) environment variables that contain (real-world) envi
 - `$LOCATION` - physical location, determined from `$WIFI_NETWORK`, which comes from `nm-tool` or `airport -I`
 - `$MACHINE` - human-readable name for machine, determined from `$WIFI_MAC`, which comes from `ifconfig $INTERFACE`
 - `$OS` - human-readable name for OS, determined from `$KERNEL`, which comes from `uname -s`
+- `$TERMINAL_APP` - human-readable name for terminal app, determined from a variety of environment variables set by the respective apps.
 
 `$LOCATION` and `$MACHINE` are defined in some bash scripts that aren't present in this repo
 
