@@ -20,6 +20,8 @@
 # TODO: what outputs the "you have mail" message, how can i access that hook?
 # TODO: move as much configuration as possible to top of this file
 # TODO: determine whether interactive/login/ssh/etc
+# TODO: write a tool to generate a single .bashrc file, for uploading easily (if cant pull repo for some reason?)
+# ftp://ftp.gnu.org/old-gnu/Manuals/bash-2.02/html_node/bashref_58.html
 
 export HOME_SERVER="bigpanda"
 export HOME_WIFI_NETWORK="mollywogs revenge"
@@ -84,12 +86,35 @@ source $SRC/bash/downloaded/h.sh                 # highligher
 # TODO: https://github.com/django/django/blob/master/extras/django_bash_completion
 
 
-source $DOT/bash_functions
+source $DOT/bash_functions  # TODO: move this to top, put other functions in it?
+
+export HOSTFILE=$DOT/hosts
+
+
+#################################
+# history
+# TODO: this doesn't really work properly
+# i don't understand how its intended to work when multiple terminals are used
+# and i'm not quite sure what i want it to do
+
+# don't put duplicate lines or lines starting with space in the history.
+export HISTCONTROL=ignoreboth
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+export HISTSIZE=""     # no limit
+export HISTFILESIZE="" # no limit
+#export HISTTIMEFORMAT="%y/%m/%d-%T " # makes more sense to put it in the prompt_command function
+export HISTIGNORE="l:&"  # colon-separated - & = previous line (same as ignoredups)
 
 #################################
 # machine/environment specific
+source get_terminal_info  # TODO: use this to decide on imgcat/tycat, imgls/tyls
 source get_machine_and_network_info -q  2>/dev/null
 source get_machine_and_location_names -q
+# TODO: consider using builtin $OSTYPE, $MACHTYPE, $HOSTTYPE instead?
+#       i'd rather just be in control of the values myself though...
 # ARCH, KERNEL, WIFI_MAC -> MACHINE - more consistent and useful than HOSTNAME
 # WIFI_NETWORK -> LOCATION
 
@@ -122,6 +147,9 @@ if [[ "$NICKNAME" != "$HOME_SERVER" ]] ; then
     source $DOT/.bashrc-not-$HOME_SERVER
     source $DOT/.alias-not-$HOME_SERVER
 fi
+
+vprint 2 "sourcing dotfiles for terminal app = $TERMINAL_APP"
+source $DOT/.alias-$TERMINAL_APP
 
 #######################
 # prompt stuff
@@ -175,6 +203,21 @@ function prompt_command {
     # TODO: hit servers in cron job, update a file if successful, pull result here
     # - HOME_SERVER_IP
     # - umbel deps repo
+
+    # history
+    # https://spin.atomicobject.com/2016/05/28/log-bash-history/
+    if [ "$(id -u)" -ne 0 ]; then  # if not root
+        histfile="$HOME/.logs/bash-history-$(\date "+%Y-%m-%d").log"
+        echo "$(\date "+%Y-%m-%d.%H:%M:%S") $(pwd) $(history 1)" >> $histfile
+        # doing time here instead of in HISTTIMEFORMAT makes for better formatting
+    fi
+
+    # http://unix.stackexchange.com/questions/1288/preserve-bash-history-in-multiple-terminal-windows
+    history -a  # append
+    # history -c  # clear - why would i want this?
+    # history -r  # reload - why would i want this?
+
+
 
     # TODO: get previous exit status and command, use that to suggest a solution
     # http://stackoverflow.com/questions/6109225/bash-echoing-the-last-command-run
