@@ -5,13 +5,13 @@
 ### why?
 I have a bunch of common functionality I want on every machine I use, and I also have a little bit of machine/platform-specific functionality, in a mutually exclusive kind of way. I also value the ability to completely set up a new machine as quickly and painlessly as possible. for years, I've dealt with these issues in an ad-hoc way that has left me with a giant pile of .bashrc_$HOSTNAME_$DATE files that are basically impossible to maintain. this structure has worked much better, so far.
 
-using dropbox obviates the need for github, except in the case of raspberry pis, which has no official dropbox client. now that i have 1) multiple pis and 2) this repo in a stable state, putting it up is useful.
+using dropbox obviates the need for github, except in the case of raspberry pi, which has no official dropbox client. now that i have 1) multiple pis and 2) this repo in a stable state, putting it up is useful.
 
 you might notice that there are quite a few files here. this is a plus for me - a handful of them are for core functionality, and the rest are relatively small, containing only the minimum amount of configuration for the environment they represent.
 
 ### how?
 
-main entry point is `.bashrc-new` - source this at the bottom of the default `.bashrc` or `.bash_profile`, to prevent messing with that stuff. `.bashrc-new` contains basic, common setup, environment detection, and branching logic
+main entry point is `.bashrc-new` - source this at the bottom of the default `.bashrc` or `.bash_profile`, to prevent messing with that stuff. `.bashrc-new` contains common basic setup, environment detection, and branching logic
 
 functionality is split into four main components...
 * `.paths-*` - define `$PATH`, `$CDPATH`, other language-specific or app-specific paths
