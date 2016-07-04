@@ -2,6 +2,13 @@
 
 ## extensible, configurable bashrc system
 
+### why?
+I have a bunch of common functionality I want on every machine I use, and I also have a little bit of machine/platform-specific functionality, in a mutually exclusive kind of way. I also value the ability to completely set up a new machine as quickly and painlessly as possible. for years, I've dealt with these issues in an ad-hoc way that has left me with a giant pile of .bashrc_* files that are basically impossible to maintain. this structure has worked much better, so far.
+
+using dropbox obviates the need for github, except in the case of raspberry pis, which has no official dropbox client. now that i have 1) multiple pis and 2) this repo in a stable state, putting it up is useful.
+
+### how?
+
 main entry point is `.bashrc-new` - source this at the bottom of the default `.bashrc` or `.bash_profile`, to prevent messing with that stuff. `.bashrc-new` contains basic, common setup, environment detection, and branching logic
 
 functionality is split into four main components...
@@ -24,15 +31,13 @@ these depend on some (bash) environment variables that contain (real-world) envi
 
 `$LOCATION` and `$MACHINE` are defined in some bash scripts that aren't present in this repo
 
+all of this stuff has to live in `$HOME/Dropbox/src/dotfiles` to work properly. that path is sort of 'bootstrapped', so ideally it would be configurable, for the sake of other people using this stuff.
+
+
+### examples of benefits
 `.bashrc-$MACHINE` usually defines `$PSCOLOR1` and `$PSCOLOR2`, which set machine-specific `$PS1` prompt colors. I use this to visually identify terminals running SSH sessions.
 
 additionally, `$HOME_SERVER` is used to decide whether any remote config should be used:
 * `.bashrc-not-bigpanda` - track home server's dynamic IP for easy SSH access
 
-all of this stuff has to live in `$HOME/Dropbox/src/dotfiles` to work properly. that path is sort of 'bootstrapped', so ideally it would be configurable, for the sake of other people using this stuff.
-
-
-### why?
-I have a bunch of common functionality I want on every machine I use, and I also have a little bit of machine/platform-specific functionality, in a mutually exclusive kind of way. I also value the ability to completely set up a new machine as quickly and painlessly as possible. for years, I've dealt with these issues in an ad-hoc way that has left me with a giant pile of .bashrc_* files that are basically impossible to maintain. this structure has worked much better, so far.
-
-using dropbox obviates the need for github, except in the case of raspberry pis, which has no official dropbox client. now that i have 1) multiple pis and 2) this repo in a stable state, putting it up is useful.
+`.alias-$TERMINAL_APP` sets different aliases that allow me to use app-specific escape sequence extensions, without paying attention to what app I'm using. terminology (linux) and iterm (osx) are both capable of displaying images in the terminal, but they use different mechanisms. it might be preferable for one executable/script to handle all cases, but I don't know an easy way to do that at the moment, so this is a better solution.
