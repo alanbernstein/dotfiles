@@ -4,6 +4,17 @@ cmdedit ()
   emacsclient -n $(which $1)
 }
 
+backup()
+{
+# cp name.ext name.bak.ext
+  for i do
+    case ${i##*/} in
+      (?*.?*) cp -iv -- "$i" "${i%.*}.bak.${i##*.}";;
+      (*) cp -iv -- "$i" "$i.bak"
+    esac
+  done
+}
+
 ## old junk
 
 subopen ()
