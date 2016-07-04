@@ -30,6 +30,7 @@ these depend on some (bash) environment variables that contain (real-world) envi
 - `$MACHINE` - human-readable name for machine, determined from `$WIFI_MAC`, which comes from `ifconfig $INTERFACE`
 - `$OS` - human-readable name for OS, determined from `$KERNEL`, which comes from `uname -s`
 - `$TERMINAL_APP` - human-readable name for terminal app, determined from a variety of environment variables set by the respective apps.
+- `$HOME_SERVER` is used to decide whether any remote config should be used
 
 `$LOCATION` and `$MACHINE` are defined in some bash scripts that aren't present in this repo
 
@@ -37,9 +38,10 @@ all of this stuff has to live in `$HOME/Dropbox/src/dotfiles` to work properly. 
 
 
 ### examples of benefits
-`.bashrc-$MACHINE` usually defines `$PSCOLOR1` and `$PSCOLOR2`, which set machine-specific `$PS1` prompt colors. I use this to visually identify terminals running SSH sessions.
+* `.bashrc-$MACHINE` defines `$PSCOLOR1` and `$PSCOLOR2`, which set machine-specific `$PS1` prompt colors. I use this to visually identify terminals running SSH sessions.
 
-additionally, `$HOME_SERVER` is used to decide whether any remote config should be used:
-* `.bashrc-not-bigpanda` - track home server's dynamic IP for easy SSH access
+* `.bashrc-not-bigpanda` - tracks home server's dynamic IP for easy SSH access
 
-`.alias-$TERMINAL_APP` sets different aliases that allow me to use app-specific escape sequence extensions, without paying attention to what app I'm using. terminology (linux) and iterm (osx) are both capable of displaying images in the terminal, but they use different mechanisms. it might be preferable for one executable/script to handle all cases, but I don't know an easy way to do that at the moment, so this is a better solution.
+* `.alias-$TERMINAL_APP` - provides consistent interface to app-specific escape sequence extensions
+
+terminology (linux) and iterm (osx) are both capable of displaying images in the terminal, but they use different mechanisms. it might be preferable for one executable/script to handle all cases, but I don't know an easy way to do that at the moment, so this is a better solution.
