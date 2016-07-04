@@ -20,26 +20,35 @@ try:
 except Exception as e:
     print(e)
 
-import sys
-from panda.debug import debug, pp
+print('')
+
+import sys, os, glob, re, subprocess, json, datetime
+print('import sys, os, glob, re, subprocess, json, datetime')
+
+from math import *
+print('from math import *')
+
+from panda.debug import debug, pp, jprint
 from datetime import datetime as dt
-print('pprint -> pp')
-print('ipdb.set_trace -> debug')
+print('from panda.debug import (debug,  # ipdb.set_trace')
+print('                         pp,     # pprint.pprint')
+print('                         jprint)')
 
 try:
     import numpy as np
-    print('imported numpy as np')
+    print('import numpy as np')
 except:
     print('numpy not available!')
 
 try:
-    import matplotlib as plt
-    print('imported matplotlib as plt')
+    import matplotlib.pyplot as plt
+    print('import matplotlib.pyplot as plt')
 except:
     print('matplotlib not available!')
 
 try:
     from pylab import *
+    print('from pylab import *')
 except:
     print('pylab not available!')
 
