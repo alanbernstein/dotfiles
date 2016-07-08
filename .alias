@@ -72,6 +72,26 @@ alias ga="$EDITOR ~/.alias &"
 alias sb="source ~/.bashrc"
 alias sa="source ~/.alias"
 
+# PYTHON
+alias py="python"
+alias ipy="ipython"
+alias ipn="ipython notebook"
+alias bpy="bpython"
+alias ppy="ptpython"
+alias pm="python manage.py" # django alias
+alias rmpyc='find . -type f -name "*.pyc" -delete'
+
+
+# GIT
+alias gd='git diff'
+alias gds='git diff --staged'
+alias gs='git status'
+alias gac='git add . && git commit -m'
+alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+alias pullmaster="current=\$(git rev-parse --abbrev-ref HEAD) && git stash && git checkout master && git pull && git checkout \$current && git stash pop"
+
+
+
 
 # ABBREVIATIONS (still sorting through these)
 #alias diskspace="df 2>/dev/null | awk '{ printf \"%-20s : %4s/%4s (%3s) used, %4s free \n\", \$6, \$3, \$2, \$5, \$4}'"
@@ -84,22 +104,11 @@ alias his='history'
 alias thes='dict -d moby-thesaurus'
 alias cronshow='crontab -l | egrep -v "^#|^$"'
 
-alias py="python"
-alias ipy="ipython"
-alias ipn="ipython notebook"
-alias bpy="bpython"
-alias ppy="ptpython"
-alias pm="python manage.py" # django alias
-
-alias rmpyc='find . -type f -name "*.pyc" -delete'
+alias csvprint="column -s, -t < "
 
 alias wttr="curl wttr.in"
 
 alias emax="emacsclient -n"
-
-alias pullmaster="current=\$(git rev-parse --abbrev-ref HEAD) && git stash && git checkout master && git pull && git checkout \$current && git stash pop"
-
-alias gitlog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 
 alias countfiles='for f in */ ; do echo "$(find "$f" | wc -l) - $f" ; done | sort -rh'
 
