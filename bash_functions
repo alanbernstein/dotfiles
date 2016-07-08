@@ -4,6 +4,11 @@ cmdedit ()
   emacsclient -n $(which $1)
 }
 
+echopath ()
+{
+  echo $1 | tr : "\n"
+}
+
 backup()
 {
 # cp name.ext name.bak.ext
