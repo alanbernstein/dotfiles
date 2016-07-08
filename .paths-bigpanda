@@ -1,6 +1,14 @@
 print_name 3 "- entry"
 
-export CDPATH=":~:/media/alan/tb:/media/MediaI:~/public_html:~/c:~/py:~/.purple/logs/aim:~/.purple/logs/jabber" # first entry should be blank to force checking current directory
+# put $CDPATH first to ensure PWD still checked
+export CDPATH="$CDPATH:$HOME"
+export CDPATH="$CDPATH:/media/alan/tb"
+export CDPATH="$CDPATH:/media/MediaI"
+#export CDPATH="$CDPATH:$HOME/public_html"
+#export CDPATH="$CDPATH:$HOME/c"
+#export CDPATH="$CDPATH:$HOME/py"
+#export CDPATH="$CDPATH:$HOME/.purple/logs/aim"
+#export CDPATH="$CDPATH:$HOME/.purple/logs/jabber"
 
 
 export MEDIA="/media/"
