@@ -19,7 +19,7 @@ export CACHE="$HOME/.cache/"
 # important path vars
 export PATH=".:$DROPBOX/bin:$CMD:$HOME:$GOPATH/bin:$PATH" # add current directory and home directory to command search path
 export CDPATH=".:~"
-export PYTHONPATH="$PY:$PYTHONPATH"
+export PYTHONPATH="$PY:$PY/qr:$PYTHONPATH"
 export PYTHONSTARTUP="$DOT/.pythonrc"
 export MATPLOTLIBRC="$PY"
 export GOPATH="$GO"
