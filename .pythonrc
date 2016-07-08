@@ -1,38 +1,32 @@
 # -*- mode: python -*-
+# echo this filename
 import os
-import datetime
-from dateutil.parser import parse
-
-# custom
-from clc import clc
-# todo imports:
-# - site uploader
-# - time utils
-# - debug/annotate decorators
-# - varinfo
-# - size
-# - console plotter
-
-print('`from __future__ import division` to default float division')
-
 try:
     print('executing %s' % os.path.realpath(__file__))
 except Exception as e:
     print(e)
 
+print('`from __future__ import division` to default float division')
+
+## common standard library imports
 print('')
-
-import sys, os, glob, re, subprocess, json, datetime
-print('import sys, os, glob, re, subprocess, json, datetime')
-
+from datetime import datetime as dt
+print('from datetime import datetime as dt')
+import sys, os, glob, re, subprocess, json, datetime, random
+print('import sys, os, glob, re, subprocess, json, datetime, random')
+from collections import namedtuple, defaultdict, Counter
+print('from collections import namedtuple, defaultdict, Counter')
+from itertools import product
+print('from itertools import product')
 from math import *
 print('from math import *')
 
-from panda.debug import debug, pp, jprint
-from datetime import datetime as dt
-print('from panda.debug import (debug,  # ipdb.set_trace')
-print('                         pp,     # pprint.pprint')
-print('                         jprint)')
+## common pip imports
+try:
+    from dateutil.parser import parse
+    print('from dateutil.parser import parse')
+except:
+    print('dateutil not available!')
 
 try:
     import numpy as np
@@ -46,11 +40,42 @@ try:
 except:
     print('matplotlib not available!')
 
+# try:
+#     from pylab import *
+#     print('from pylab import *')
+# except:
+#     print('pylab not available!')
+
+
+# personal custom imports
+# todo:
+# - site uploader
+# - time utils
+# - debug/annotate decorators
+# - varinfo
+# - size
+# - console plotter
+
 try:
-    from pylab import *
-    print('from pylab import *')
+    from clc import clc
+    print('from clc import clc')
 except:
-    print('pylab not available!')
+    print('clc not available!')
+
+try:
+    from qr import qr
+    print('from qr import qr')
+except:
+    print('qr not available!')
+
+try:
+    from panda.debug import debug, pp, jprint
+    print('from panda.debug import (debug,  # ipdb.set_trace')
+    print('                         pp,     # pprint.pprint')
+    print('                         jprint)')
+except:
+    print('panda.debug not available')
+
 
 # detect interactive/executable, and/or which interpreter
 # (python, ipython, bpython)
