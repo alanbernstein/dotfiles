@@ -1,8 +1,8 @@
 print_name 3 " - entry"
 
-# these two lines added to try to make mysql work
-export PATH=/usr/local/mysql/bin:$PATH
-export DYLD_LIBRARY_PATH=/usr/local/mysql/lib/
+# these two lines added to try to make mysql work - brew complains about them
+#export PATH=/usr/local/mysql/bin:$PATH
+#export DYLD_LIBRARY_PATH=/usr/local/mysql/lib/
 
 
 # enable gnu coreutils
@@ -10,17 +10,21 @@ export PATH="/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:$PATH"
 
 
 # python
+#export PYTHONPATH="/usr/local/Cellar/pyqt/4.11.4:$PYTHONPATH"
+
 # shouldn't really need these, and they break python3
-#export PYTHONPATH="/usr/local/Cellar/python/2.7.10_2/Frameworks/Python.framework/Versions/2.7/lib/python27.zip:$PYTHONPATH"
-#export PYTHONPATH="/usr/local/Cellar/python/2.7.10_2/Frameworks/Python.framework/Versions/2.7/lib/python2.7:$PYTHONPATH"
-#export PYTHONPATH="/usr/local/Cellar/python/2.7.10_2/Frameworks/Python.framework/Versions/2.7/lib/python2.7/plat-darwin:$PYTHONPATH"
-#export PYTHONPATH="/usr/local/Cellar/python/2.7.10_2/Frameworks/Python.framework/Versions/2.7/lib/python2.7/plat-mac:$PYTHONPATH"
-#export PYTHONPATH="/usr/local/Cellar/python/2.7.10_2/Frameworks/Python.framework/Versions/2.7/lib/python2.7/plat-mac/lib-scriptpackages:$PYTHONPATH"
-#export PYTHONPATH="/usr/local/Cellar/python/2.7.10_2/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-tk:$PYTHONPATH"
-#export PYTHONPATH="/usr/local/Cellar/python/2.7.10_2/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-old:$PYTHONPATH"
-#export PYTHONPATH="/usr/local/Cellar/python/2.7.10_2/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload:$PYTHONPATH"
-#export PYTHONPATH="/usr/local/lib/python2.7/site-packages:$PYTHONPATH"
-#export PYTHONPATH="/Library/Python/2.7/site-packages/pip-7.1.0-py2.7.egg:$PYTHONPATH"
-#export PYTHONPATH="/Library/Python/2.7/site-packages/distribute-0.6.28-py2.7.egg:$PYTHONPATH"
-#export PYTHONPATH="/Library/Python/2.7/site-packages/MySQL_python-1.2.4b4-py2.7-macosx-10.10-intel.egg:$PYTHONPATH"
-#export PYTHONPATH="/Library/Python/2.7/site-packages:$PYTHONPATH"
+if [ "" ] ; then
+    export PYTHONPATH="/usr/local/Cellar/python/2.7.10_2/Frameworks/Python.framework/Versions/2.7/lib/python27.zip:$PYTHONPATH"
+    export PYTHONPATH="/usr/local/Cellar/python/2.7.10_2/Frameworks/Python.framework/Versions/2.7/lib/python2.7:$PYTHONPATH"
+    export PYTHONPATH="/usr/local/Cellar/python/2.7.10_2/Frameworks/Python.framework/Versions/2.7/lib/python2.7/plat-darwin:$PYTHONPATH"
+    export PYTHONPATH="/usr/local/Cellar/python/2.7.10_2/Frameworks/Python.framework/Versions/2.7/lib/python2.7/plat-mac:$PYTHONPATH"
+    export PYTHONPATH="/usr/local/Cellar/python/2.7.10_2/Frameworks/Python.framework/Versions/2.7/lib/python2.7/plat-mac/lib-scriptpackages:$PYTHONPATH"
+    export PYTHONPATH="/usr/local/Cellar/python/2.7.10_2/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-tk:$PYTHONPATH"
+    export PYTHONPATH="/usr/local/Cellar/python/2.7.10_2/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-old:$PYTHONPATH"
+    export PYTHONPATH="/usr/local/Cellar/python/2.7.10_2/Frameworks/Python.framework/Versions/2.7/lib/python2.7/lib-dynload:$PYTHONPATH"
+    export PYTHONPATH="/usr/local/lib/python2.7/site-packages:$PYTHONPATH"
+    export PYTHONPATH="/Library/Python/2.7/site-packages/pip-7.1.0-py2.7.egg:$PYTHONPATH"
+    export PYTHONPATH="/Library/Python/2.7/site-packages/distribute-0.6.28-py2.7.egg:$PYTHONPATH"
+    export PYTHONPATH="/Library/Python/2.7/site-packages/MySQL_python-1.2.4b4-py2.7-macosx-10.10-intel.egg:$PYTHONPATH"
+    export PYTHONPATH="/Library/Python/2.7/site-packages:$PYTHONPATH"
+fi

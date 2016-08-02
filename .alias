@@ -73,8 +73,21 @@ alias sb="source ~/.bashrc"
 alias sa="source ~/.alias"
 
 # PYTHON
-alias py="python"
-alias ipy="ipython"
+PYTHON_DEFAULT="2"
+if [ $PYTHON_DEFAULT == "2" ] ; then
+    alias py="python"
+    alias py3="python3"
+    alias ipy="ipython"
+    alias ipy3="ipython3"
+elif [ $PYTHON_DEFAULT == "3" ] ; then
+    alias py="python3"
+    alias py2="python"
+    alias ipy="ipython3"
+    alias ipy2="ipython"
+    alias pip="pip3"
+    alias pip2="pip"
+fi
+
 alias ipn="ipython notebook"
 alias bpy="bpython"
 alias ppy="ptpython"
