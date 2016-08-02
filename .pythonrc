@@ -21,7 +21,10 @@ print('from itertools import product')
 from math import *
 print('from math import *')
 
+#print(sys.path)
+
 ## common pip imports
+print('')
 try:
     from dateutil.parser import parse
     print('from dateutil.parser import parse')
@@ -35,7 +38,10 @@ except:
     print('numpy not available!')
 
 try:
-    import matplotlib.pyplot as plt
+    import warnings
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        import matplotlib.pyplot as plt
     print('import matplotlib.pyplot as plt')
 except:
     print('matplotlib not available!')
@@ -56,25 +62,30 @@ except:
 # - size
 # - console plotter
 
+print('')
 try:
-    from clc import clc
-    print('from clc import clc')
-except:
-    print('clc not available!')
+    # from panda.utils import clc
+    # from panda.utils import epoch_to_datestr, datestr_to_epoch
+    from panda.sci_utils import ar
+    # from panda.plot_utils import qplot
+
+    from panda.debug import debug, pp, jprint
+    print('from panda.debug import (debug,  # ipdb.set_trace')
+    print('                         pp,     # pprint.pprint')
+    print('                         jprint,')
+    print('                         pm      # post-mortem debug decorator')
+
+except Exception as e:
+    print('panda.* error -  ')
+    print(e)
+
 
 try:
     from qr import qr
     print('from qr import qr')
 except:
+    raise
     print('qr not available!')
-
-try:
-    from panda.debug import debug, pp, jprint
-    print('from panda.debug import (debug,  # ipdb.set_trace')
-    print('                         pp,     # pprint.pprint')
-    print('                         jprint)')
-except:
-    print('panda.debug not available')
 
 
 # detect interactive/executable, and/or which interpreter
