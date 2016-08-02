@@ -125,7 +125,7 @@ vprint 3 "LOCATION     = '$LOCATION'"
 vprint 3 "MACHINE      = '$MACHINE'"
 
 
-vprint 2 "sourcing dotfiles for os = $OS"
+vprint 2 "sourcing dotfiles for \$OS = $OS"
 source $DOT/.bashrc-$OS
 source $DOT/.paths-$OS
 source $DOT/.alias-$OS
@@ -135,7 +135,7 @@ source $DOT/.bash-escape-codes      # color sequence shortcuts, etc
 PSCOLOR1=$Blue
 PSCOLOR2=$Cyan
 
-vprint 2 "sourcing dotfiles for machine = $MACHINE"
+vprint 2 "sourcing dotfiles for \$MACHINE = $MACHINE"
 source $DOT/.bashrc-$MACHINE  # this should override PSCOLOR*
 source $DOT/.paths-$MACHINE
 source $DOT/.alias-$MACHINE
@@ -143,12 +143,12 @@ source $DOT/.alias-$MACHINE
 NICKNAME=${NICKNAME:-$HOSTNAME} # if NICKNAME is set use it; else use hostname
 
 if [[ "$NICKNAME" != "$HOME_SERVER" ]] ; then
-    vprint 2 "sourcing dotfiles for machine != $HOME_SERVER"
+    vprint 2 "sourcing dotfiles for \$MACHINE != $HOME_SERVER"
     source $DOT/.bashrc-not-$HOME_SERVER
     source $DOT/.alias-not-$HOME_SERVER
 fi
 
-vprint 2 "sourcing dotfiles for terminal app = $TERMINAL_APP"
+vprint 2 "sourcing dotfiles for \$TERMINAL_APP = $TERMINAL_APP"
 source $DOT/.alias-$TERMINAL_APP
 
 #######################
