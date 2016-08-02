@@ -1,7 +1,9 @@
 cmdedit ()
 {
 # open in an editor, a file that is on the path
-  emacsclient -n $(which $1)
+  cmd_path=$(which $1)
+  real_path=$(readlink -f $cmd_path)
+  emacsclient -n $real_path
 }
 
 echopath ()
