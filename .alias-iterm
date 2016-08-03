@@ -1,1 +1,2 @@
-.alias-iterm2
+alias imgcat="imgcat-iterm2"
+alias imgls="imgls-iterm2"
