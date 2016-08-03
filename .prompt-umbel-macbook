@@ -1,7 +1,7 @@
 print_name 5 "- entry"
 
 # check deps repo
-deps_status=$(cd ~/src/umbel/deps && git status | grep behind)
+deps_status=$((cd ~/src/umbel/deps && git status | grep behind) 2>/dev/null)
 if [ -n "$deps_status" ] ; then
    echo "update deps repo!"
    echo "cd ~/src/umbel/deps && git pull # fix in future builds"
