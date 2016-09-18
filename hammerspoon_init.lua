@@ -4,7 +4,13 @@
 -- ctrl-alt-S       headphones (spoken) - for testing whether headphone jack is broken
 -- ctrl-alt-U       unmount SD card (ad-hoc)
 -- ctrl-alt-Q       play random spotify album
+-- ctrl-alt-P       launch/focus keepass
 
+
+hs.hotkey.bind({"ctrl", "alt"}, "P", function()
+  hs.application.launchOrFocus("KeePassX")
+  hs.alert.show("launched or focused keepass")
+end)
 
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "W", function()
   hs.alert.show("Hello World!")
