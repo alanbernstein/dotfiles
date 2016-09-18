@@ -10,5 +10,5 @@ elif [[ "$DISTRIB_ID" == *"CrunchBang"* ]] ; then
     DISTRO="crunchbang"
 fi
 
-echo "sourcing dotfiles for distro = $DISTRO"
+vprint 2 "sourcing dotfiles for \$DISTRO = $DISTRO"
 source $DOT/.paths-$DISTRO
