@@ -2,7 +2,7 @@ print_name 3 "- entry"
 
 # TODO: make this cleaner?
 source /etc/lsb-release
-source /etc/lsb-release-* 
+source /etc/lsb-release-* 2>/dev/null
 
 if [[ "$DISTRIB_ID" == *"Ubuntu"* ]] ; then
     DISTRO="ubuntu"
