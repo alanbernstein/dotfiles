@@ -27,10 +27,7 @@ export HOME_SERVER="bigpanda"
 export HOME_WIFI_NETWORK="mollywogs revenge"
 export WORK_WIFI_NETWORK="Umbel"
 
-# TODO: do i really want to export this? maybe:
-# - unset at end of this file
-# - store current value and restore it
-export VERBOSITY=${VERBOSITY:-2}
+export VERBOSITY=${VERBOSITY:-2}  # set to default of 2, only if not set. this allows user config at CLI
 # current VERBOSITY usage (2016/06)
 # VERBOSITY=0 -> none of my diagnostics print
 # VERBOSITY=1 -> only print entry into this file
@@ -58,8 +55,9 @@ function print_name {
     vprint $1 $(basename ${BASH_SOURCE[1]}) $2
 }
 
-print_name 1 " - entry"
 
+# print some stuff to make it easier to trace execution flow when debugging
+print_name 1 " - entry"
 
 CALLED_BY="$(ps -o comm= $PPID)"
 SOURCED_BY="$(caller)"
