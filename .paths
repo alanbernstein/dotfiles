@@ -11,7 +11,7 @@ export TODO="$TXT/todo"
 export NOTES="$TXT/notes"
 export PY="$SRC/py"
 export GO="$SRC/go"
-export CMD="$SRC/commands"            # command links directory (replacement for ~/bin)
+export CMD="$HOME/cmd"                # command links directory (makes more sense than "bin")
 export PINOUTS="$DROPBOX/images/pinouts"
 export CACHE="$HOME/.cache"
 
@@ -19,7 +19,7 @@ export CACHE="$HOME/.cache"
 # important path vars
 export PATH=".:$DROPBOX/bin:$CMD:$HOME:$GOPATH/bin:$PATH" # add current directory and home directory to command search path
 export CDPATH=".:~"
-export PYTHONPATH="$PY:$PY/qr:$PY/panda:$PYTHONPATH"
+export PYTHONPATH="$PY:$PY/qr:$PY/panda:$PY/ipython-extensions:$PYTHONPATH"
 export PYTHONSTARTUP="$DOT/.pythonrc"
 export MATPLOTLIBRC="$PY"
 export GOPATH="$GO"
