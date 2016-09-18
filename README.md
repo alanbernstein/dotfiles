@@ -11,7 +11,7 @@ you might notice that there are quite a few files here. this is a plus for me - 
 
 ### how?
 
-main entry point is `.bashrc-new` - source this at the bottom of the default `.bashrc` or `.bash_profile`, to prevent messing with that stuff. `.bashrc-new` contains common basic setup, environment detection, and branching logic
+main entry point is `.bashrc-main` - source this at the bottom of the default `.bashrc` or `.bash_profile`, to prevent messing with that stuff. `.bashrc-main` contains common basic setup, environment detection, and branching logic
 
 functionality is split into four main components...
 * `.paths-*` - define `$PATH`, `$CDPATH`, other language-specific or app-specific paths
