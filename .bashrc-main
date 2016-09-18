@@ -3,7 +3,7 @@
 # - define a bunch of useful environment variables, including
 #   - common directory shortcuts
 #   - OS, MAC (address)
-#   - NICKNAME (machine identifier) and LOCATION (wifi-informed)
+#   - NICKNAME (stable machine identifier) and LOCATION (wifi-informed)
 #   - verbosity level
 # - source .alias and .path files, split up per machine/OS/etc
 # - define environment-aware PS1 (prompt string)
