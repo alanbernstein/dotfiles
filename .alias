@@ -1,8 +1,13 @@
 print_name 3 "- entry"
 
 
+# FUNCTION ALIASES
+alias cd="cd_autoenv"  # just trying this out for now 2016/08
+# alias grep="grep_sift"
+# alias egrep="grep_sift"
+
+
 # DEFAULT MODIFIERS
-alias cd="cd -P"
 alias date="date +'%Y/%m/%d %T'"
 alias echo="echo -e"
 alias egrep='egrep --color=auto'
@@ -93,6 +98,7 @@ alias bpy="bpython"
 alias ppy="ptpython"
 alias pm="python manage.py" # django alias
 alias rmpyc='find . -type f -name "*.pyc" -delete'
+alias webshare='python -c "import SimpleHTTPServer;SimpleHTTPServer.test()"'
 
 
 # GIT
@@ -122,6 +128,7 @@ alias csvprint="column -s, -t < "
 alias wttr="curl wttr.in"
 
 alias emax="emacsclient -n"
+alias e="emacsclient -n"
 
 alias countfiles='for f in */ ; do echo "$(find "$f" | wc -l) - $f" ; done | sort -rh'
 
@@ -150,6 +157,7 @@ alias stlvolumes='slic3r --info *.stl | egrep "Info|volume" | paste -d, - - | cu
 alias tg="ggrep -riIn --color=auto --include=*.txt --exclude='* *'"
 alias please="sudo  !!" # run prev command as sudo
 alias filecount="find . -type f -printf \"%h\n\" | cut -d/ -f-2 | sort | uniq -c | sort -rn"
+alias find_duplicates='find . | grep txt | rev | cut -d/ -f1 | rev | sort | uniq -c | grep " 2 "'
 
 
 # network stuff
