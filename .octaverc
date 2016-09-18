@@ -1,0 +1,165 @@
+% this file is called by matlabrc.m, which is always executed by matlab on
+% startup. use userpath once to persistently define the startup path, which
+% should be whatever directory includes this file
+%
+% for octave, create symlink to this file called ~/.octaverc:
+% cd ~; ln -s ~/Dropbox/src/matlab/startup.m .octaverc
+
+
+%% figure out computer name and program name, show to user
+[ret, machine_name] = system('hostname');
+if ret ~= 0
+   if ispc
+      machine_name = getenv('COMPUTERNAME');
+   else      
+      machine_name = getenv('HOSTNAME');      
+   end
+end
+machine_name(machine_name==10)=[];
+
+octaveFlag=0; prog = 'matlab';
+if exist('OCTAVE_VERSION','builtin')~=0, octaveFlag=1; prog='octave'; end 
+% cant use isoctave.m because its not in the path yet
+
+PRINT=1;
+INTERACTIVE=1;
+
+if isequal(prog,'octave')
+  args = argv(); % CLI arguments
+  if any(~cellfun(@isempty,strfind(args,'q'))) || any(~cellfun(@isempty,strfind(args,'--silent')))
+  % quiet flag at command line
+    PRINT=0;
+  end
+  
+  unix('export EDITOR=geany')
+  
+  if any(~cellfun(@isempty,strfind(args,'/'))) % this is true if octave 
+  % was called with a line like "octave ./exec_script.m", which is what
+  % happens when you run an executable m-file with a #! line. 
+  % this is kind of kludgy, but it seems to work for my purposes.
+    INTERACTIVE=0;
+    calldir=pwd;
+  end
+end
+
+script_name = mfilename('fullpathext');
+
+if isunix
+  % assume this means running on bigpanda with other display
+  [ret cname] = unix('echo $CLIENTNAME');
+  cname(cname==10)=[];
+  if ~isempty(cname)
+    dsp = sprintf(' (display on %s)',cname)
+  else
+    dsp = '';
+  end
+end
+if PRINT
+  fprintf('=======================\nexecuting %s on %s%s, in %s v%s \n',script_name,machine_name,dsp,prog,version);
+end
+
+if ~octaveFlag
+  path(pathdef); % start with the default matlab search path
+end
+% this line causes Warning: Duplicate directory name: /home/alan/Dropbox/matlab. 
+% so does this: matlabpath(pathdef)
+% probably because userpath has ~/Dropbox/matlab in it twice - why does it?
+%
+% getenv('MATLABPATH') returns ~/Dropbox/matlab, because i have:
+%  export MATLABPATH="/home/alan/Dropbox/matlab/"
+% in my ~/.bashrc
+%
+% p = system_dependent('getuserworkfolder') returns /home/alan/Dropbox/matlab -
+%    why does it do that?
+
+% define base path, default figure position (machine dependent)
+switch lower(machine_name)
+  case 'mobilepanda' % inspiron
+      
+  case 'kuma-orginal-server' % kuma desktop
+    figpos=[1000 600 600 400];
+    basepath='/home/alan/matlab/'; % basepath for kuma should NOT be in my dropbox folder, for security reasons
+    addpath('/home/alan/Dropbox/matlab/critical')
+
+  case 'kuma-server' % kuma matlab server
+    figpos=[1000 600 600 400];
+    basepath='/home/alan/matlab/'; 
+    addpath('/home/alan/Dropbox/matlab/critical')
+    
+  case 'thinkpanda' % thinkpad
+    figpos=[50 650 700 400];
+    basepath='/home/alan/Dropbox/src/matlab/';
+    addpath('/home/alan/Dropbox/src/matlab/critical')
+    
+  case {'bigpanda','pandabox'} % home desktop, linux/windows
+    figpos=[1000 600 600 400];
+    if isunix
+      basepath='/home/alan/Dropbox/src/matlab/';
+      addpath('/home/alan/Dropbox/src/matlab/critical')
+    else
+      basepath = 'C:\Documents and Settings\alan\My Documents\Dropbox\matlab\ ';
+      addpath('C:\Documents and Settings\alan\My Documents\Dropbox\matlab\critical')
+    end
+
+%  case 'lvs-ens430-03' % UT windows desktop
+%    basepath='C:\Documents and Settings\ece-aab74-la\My Documents\Dropbox\matlab\ ';
+%  case 'syndrome' % ARL windows desktop
+%    basepath='C:\Documents and Settings\abernste\My Documents\Dropbox\matlab\ ';
+    
+end
+
+set(0,'defaultfigureposition',figpos)
+if PRINT
+  fprintf('basepath = %s, cding...\n',basepath)
+end
+cd(basepath) % should already be in this folder...
+addpaths(basepath,machine_name,PRINT)
+rootdefaults(2) % this must be run AFTER addpaths
+
+if ~INTERACTIVE
+  cd(calldir)
+end
+
+
+%% basic preferences
+format short g
+format compact
+if ~octaveFlag
+  % matlab only
+  beep off
+  dbstop if error; % this outputs something in octave?
+  % warning off MATLAB:dispatcher:nameConflict 
+  % this warning is annoying, but it catches conflicts with builtins, which
+  % are extremely painful to debug. leave it on.
+  warning off MATLAB:divideByZero
+  warning off MATLAB:log:logOfZero
+else
+  more off
+  suppress_verbose_help_message(1)
+  if version_dbl>=3.6
+    graphics_toolkit('fltk')
+    % this tk allows:
+    % - pan+zoom with mouse
+    % - figure position get and set
+  end
+
+  if 1 % how to determine whether graphics are available...
+    EDITOR('geany')
+  else
+    EDITOR('nano')
+  end
+
+  debug_on_error(1);
+  PS1('\[\e[40m\][\t] \w\n\s:\#>> '); % change octave prompt
+  sess_id = ceil(rand*1e4);
+  set(0,'tag',sprintf('%04d',sess_id));
+  titl = sprintf('octave v%s %d',version,sess_id);
+  set_title(titl);
+  % the ceil(rand) is a crappy "session ID" so i can tell octave consoles
+  % apart on my desktop
+  
+  % the \[\e[40m\] changes the background color
+  % purpose of this is to distinguish the octave terminal from other linux
+  % terminals
+  %warning off Octave:load-file-in-path % this is a good warning
+end
