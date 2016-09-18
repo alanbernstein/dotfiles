@@ -1,3 +1,44 @@
+# https://sift-tool.org/docs
+grep_sift ()
+{
+    echo "using sift instead of grep"
+    sift $*
+}
+# alias grep="grep_sift"
+# alias egrep="grep_sift"
+
+
+# https://gist.github.com/petruisfan/b0e57db048483a69e81e
+cd_autoenv ()
+{
+# note that you will need to use \cd at the CLI to use any other flags
+    \cd -P "$*"  # instead of $1, so it works with space in name
+    if [[ -e .env ]]; then
+        echo "sourcing ./.env"
+        source .env
+    fi
+}
+#alias cd="cd_autoenv"  # do this in .alias instead
+
+
+pyj ()
+{
+# pretty print a json file
+# if none supplied, pick the most-recently one changed in pwd
+  if [ "$#" -eq 0 ] ; then
+    file=$(\ls *.json -t1 | head -1)
+    echo "found $file..."
+  else
+    file=$1
+  fi
+  cat $file | python -m json.tool
+}
+
+n ()
+{
+  echo "${*}" >> $DROPBOX/notes.txt;
+}
+
 cmdedit ()
 {
 # open in an editor, a file that is on the path
