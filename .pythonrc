@@ -1,119 +1,187 @@
 # -*- mode: python -*-
-# echo this filename
 import os
-try:
-    print('executing %s' % os.path.realpath(__file__))
-except Exception as e:
-    print(e)
 
-print('`from __future__ import division` to default float division')
+"""
+# quit if not interactive
+# this check doesn't work because __file__ is just .pythonrc
 
-## common standard library imports
-print('')
-from datetime import datetime as dt
-print('from datetime import datetime as dt')
-import sys, os, glob, re, subprocess, json, datetime, random
-print('import sys, os, glob, re, subprocess, json, datetime, random')
-from collections import namedtuple, defaultdict, Counter
-print('from collections import namedtuple, defaultdict, Counter')
-from itertools import product
-print('from itertools import product')
-from math import *
-print('from math import *')
+import __main__ as main
+import sys
 
-#print(sys.path)
+print('main.__file__: %s' % main.__file__)
+print('sys.ps1: %s' % hasattr(sys, 'ps1'))
 
-## common pip imports
-print('')
-try:
-    from dateutil.parser import parse
-    print('from dateutil.parser import parse')
-except:
-    print('dateutil not available!')
+if not hasattr(main, '__file__'):
+    # TODO: why is this file getting run in noninteractive mode at all?
+    # only happens in scripts that import ipython stuff
+    # only happens in OSX brew installed python - not system python,
+    # not in linux...
+    # happens in python 2 and 3
 
-try:
-    import numpy as np
-    print('import numpy as np')
-except:
-    print('numpy not available!')
+    print('__main__.__file__ undefined - noninteractive - quitting')
+    exit(0)
+else:
+    print('interactive...')
+"""
 
-try:
-    import warnings
-    with warnings.catch_warnings():
-        warnings.simplefilter("ignore")
-        import matplotlib.pyplot as plt
-    print('import matplotlib.pyplot as plt')
-except:
-    print('matplotlib not available!')
+# homebrew python erroneously(?) runs .pythonrc in non-interactive mode when ipdb is imported
+# not sure how to fix this, so workaround is to detect ipdb import, and quit if so
 
-# try:
-#     from pylab import *
-#     print('from pylab import *')
-# except:
-#     print('pylab not available!')
-
-
-# personal custom imports
-# todo:
-# - site uploader
-# - time utils
-# - debug/annotate decorators
-# - varinfo
-# - size
-# - console plotter
-
-print('')
-try:
-    # from panda.utils import clc
-    # from panda.utils import epoch_to_datestr, datestr_to_epoch
-    from panda.sci_utils import ar
-    # from panda.plot_utils import qplot
-
-    from panda.debug import debug, pp, jprint
-    print('from panda.debug import (debug,  # ipdb.set_trace')
-    print('                         pp,     # pprint.pprint')
-    print('                         jprint,')
-    print('                         pm      # post-mortem debug decorator')
-
-except Exception as e:
-    print('panda.* error -  ')
-    print(e)
-
-
-try:
-    from qr import qr
-    print('from qr import qr')
-except:
-    raise
-    print('qr not available!')
-
-
-# detect interactive/executable, and/or which interpreter
-# (python, ipython, bpython)
+# check stack trace for any ipdb imports
 import inspect
-stk = inspect.stack()
-if len(stk) > 3 and stk[3] is list and len(stk[3] > 1) and 'bpython' in stk[3][1]:
-    __BPYTHON__ = True
-# __IPYTHON__ defined in ipython
+frames = inspect.getouterframes(inspect.currentframe())
 
+ipdb_import = False
+for frame in frames:
+    context = frame[4]
+    if not context:
+        continue
+    for line in context:
+        if 'ipdb' in line:
+            ipdb_import = True
 
-# enable tab completion
-# http://www.farmckon.net/2009/08/rlcompleter-how-do-i-get-it-to-work/
-try:
-    import readline  # !!
-except ImportError:
+# print('')
+# for e in frames:
+#     print(e)
+#     print('%s:%s %s' % e[1:4])
+
+exclude_dirs = ('src/umbel',
+                'src/ticket-master',
+                )
+cwd = os.getcwd()
+excluded_dir = any([d in cwd for d in exclude_dirs])
+
+quit_flag = False
+if ipdb_import:
+    message = '.pythonrc erroneously called in non-interactive mode due to ipdb import.'
+    quit_flag = True
+    # import traceback; traceback.print_stack()
+if excluded_dir:
+    message = 'excluded directory.'
+    quit_flag = True
+
+if quit_flag:
+    # display concise, colored warning
     try:
-        import pyreadline as readline
-        # throw open a browser if we fail both readline and pyreadline
+        from colorama import init, Fore, Style
+        init()
+        print(Fore.YELLOW + ('%s quitting...' % message) + Style.RESET_ALL)
+    except Exception as exc:
+        print('%s quitting... (no colorama)' % message)
+else:
+    # apparently:
+    # - i cant exit() from this
+    # - i cant define a function either
+    # so i just need to put the entire script inside an else block
+
+    # echo this filename
+    print('executing %s' % os.path.realpath(__file__))
+
+    print('`from __future__ import division` to default float division')
+
+    ## common standard library imports
+    print('')
+    from datetime import datetime as dt
+    print('from datetime import datetime as dt')
+    import sys, os, glob, re, subprocess, json, datetime, random, time
+    print('import sys, os, glob, re, subprocess, json, datetime, random, time')
+    from collections import namedtuple, defaultdict, Counter
+    print('from collections import namedtuple, defaultdict, Counter')
+    from itertools import product
+    print('from itertools import product')
+    from math import *
+    print('from math import *')
+
+    # print(sys.path)
+
+    ## common pip imports
+    print('')
+    try:
+        from dateutil.parser import parse
+        print('from dateutil.parser import parse')
+    except:
+        print('dateutil not available!')
+
+    try:
+        import numpy as np
+        print('import numpy as np')
+    except:
+        print('numpy not available!')
+
+    try:
+        import warnings
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            import matplotlib.pyplot as plt
+            print('import matplotlib.pyplot as plt')
+    except:
+        print('matplotlib not available!')
+
+    # try:
+    #     from pylab import *
+    #     print('from pylab import *')
+    # except:
+    #     print('pylab not available!')
+
+    # personal custom imports
+    # todo:
+    # - site uploader
+    # - time utils
+    # - debug/annotate decorators
+    # - varinfo
+    # - size
+    # - console plotter
+
+    try:
+        # from panda.utils import clc
+        # from panda.utils import epoch_to_datestr, datestr_to_epoch
+        from panda.sci_utils import ar
+        # from panda.plot_utils import qplot
+        print('from panda.sci_utils import ar')
+
+        # second run of .pythonrc starts here:
+        from panda.debug import pp, jprint # TODO: fix this??????????
+        print('TODO: fix ipdb import issues')
+
+        print('from panda.debug import (pp,     # pprint.pprint')
+        print('                         jprint) # jsonify object and print readably')
+
+
+    except Exception as e:
+        print('panda.* error -  ')
+        print(e)
+
+    try:
+        from qr import qr
+        print('from qr import qr')
+    except:
+        print('qr not available!')
+
+    # detect interactive/executable, and/or which interpreter
+    # (python, ipython, bpython)
+    import inspect
+    stk = inspect.stack()
+    if len(stk) > 3 and stk[3] is list and len(stk[3] > 1) and 'bpython' in stk[3][1]:
+        __BPYTHON__ = True
+        # __IPYTHON__ defined in ipython
+
+    # enable tab completion
+    # http://www.farmckon.net/2009/08/rlcompleter-how-do-i-get-it-to-work/
+    try:
+        import readline  # !!
     except ImportError:
-        import webbrowser
-        webbrowser.open(
-            "http://ipython.scipy.org/moin/PyReadline/Intro#line-36")
-        # throw open a browser
-        # pass
-    else:
-        import rlcompleter  # !!
-        if sys.platform == 'darwin':
-            readline.parse_and_bind("bind ^I rl_complete")
+        try:
+            import pyreadline as readline
+            # throw open a browser if we fail both readline and pyreadline
+        except ImportError:
+            import webbrowser
+            webbrowser.open(
+                "http://ipython.scipy.org/moin/PyReadline/Intro#line-36")
+            # throw open a browser
+            # pass
         else:
-            readline.parse_and_bind("tab: complete")  # !!
+            import rlcompleter  # !!
+            if sys.platform == 'darwin':
+                readline.parse_and_bind("bind ^I rl_complete")
+            else:
+                readline.parse_and_bind("tab: complete")  # !!
