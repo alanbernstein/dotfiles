@@ -30,7 +30,7 @@ export WORK_WIFI_NETWORK="Umbel"
 # TODO: do i really want to export this? maybe:
 # - unset at end of this file
 # - store current value and restore it
-export VERBOSITY=2
+export VERBOSITY=${VERBOSITY:-2}
 # current VERBOSITY usage (2016/06)
 # VERBOSITY=0 -> none of my diagnostics print
 # VERBOSITY=1 -> only print entry into this file
@@ -202,7 +202,6 @@ function prompt_command {
     # - new location = home - home todo lists
     # TODO: hit servers in cron job, update a file if successful, pull result here
     # - HOME_SERVER_IP
-    # - umbel deps repo
 
     # history
     # https://spin.atomicobject.com/2016/05/28/log-bash-history/
