@@ -1,12 +1,12 @@
 print_name 5 "- entry"
 
-# check deps repo
+# check deps repo - deprecated
 deps_status=$((cd ~/src/umbel/deps && git status | grep behind) 2>/dev/null)
 if [ -n "$deps_status" ] ; then
-   echo "update deps repo!"
-   echo "cd ~/src/umbel/deps && git pull # fix in future builds"
-   echo "dm pip install -U <whatever is broken> # fix in current build"
-   echo "TODO: try to get prompt_command to guess at the new deps"
+    echo "update deps repo!"
+    echo "cd ~/src/umbel/deps && git pull # fix in future builds"
+    echo "dm pip install -U <whatever is broken> # fix in current build"
+    echo "TODO: try to get prompt_command to guess at the new deps"
 fi
 
 if [[ "$WIFI_NETWORK" == *"$WORK_WIFI_NETWORK"* ]] ; then
