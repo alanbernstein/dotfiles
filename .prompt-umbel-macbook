@@ -17,5 +17,13 @@ elif [[ "$WIFI_NETWORK" == *"$HOME_WIFI_NETWORK"* ]] ; then
     :
 fi
 
+CINEMA=$(system_profiler SPDisplaysDataType | grep -i cinema)
+if [ -n "$CINEMA" ] ; then
+    export EXTERNAL_MONITOR="CINEMA"
+else
+    export EXTERNAL_MONITOR=""
+fi
+
+
 # ONCE A DAY:
 # run slack channel notifier
