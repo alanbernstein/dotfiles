@@ -5,11 +5,20 @@
 -- ctrl-alt-U       unmount SD card (ad-hoc)
 -- ctrl-alt-Q       play random spotify album
 -- ctrl-alt-P       launch/focus keepass
+-- ctrl-alt-Z       lock screen
 
+hs.hotkey.bind({"ctrl", "alt"}, "Z", function()
+  hs.caffeinate.lockScreen()
+end)
 
 hs.hotkey.bind({"ctrl", "alt"}, "P", function()
-  hs.application.launchOrFocus("KeePassX")
-  hs.alert.show("launched or focused keepass")
+-- this works perfectly with spotify
+  --hs.application.launchOrFocus("KeePassX")
+  local win = hs.window.focusedWindow()
+  --  win:maximize()
+  --  win:unminimize()
+  --  hs.eventtap.event.newKeyEvent(mods, key, isdown)
+  hs.alert.show("BROKEN: launched or focused keepass")
 end)
 
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "W", function()
