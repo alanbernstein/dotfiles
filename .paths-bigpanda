@@ -13,6 +13,7 @@ export CDPATH="$CDPATH:/media/MediaI"
 
 export MEDIA="/media/"
 export STATEMENTS="/media/tb/documents/financial/statements/"
+export ALBUMS="/media/tb/audio/albums"
 
 #projects = None
 
