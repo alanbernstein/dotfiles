@@ -35,6 +35,7 @@ alias lf="\ls -l | grep -v '^[ld]'"        # list only files
 alias le="\ls -1 *.*  | rev | cut -d. -f1 | rev | sort | uniq -c" # count extensions (after last . - only files with a .)
 alias lse='\ls | cut -s -d. -f2- | sort | uniq -c'                # count extensions (after first .)
 alias lse2='\ls | rev | cut -s -d. -f-1 | rev | sort | uniq -c'   # count extensions (after last .)
+alias lser='\find . -type f| rev | cut -s -d. -f-1 | rev | sort | uniq -c | sort'  # count extensions recursive
 
 #alias lsn='ls -n'
 #alias lsec='for t in $(lse); do echo $t - $(l *.$t | wc -l); done'    # this counts occurences in for loop; -c option for uniq does the same
